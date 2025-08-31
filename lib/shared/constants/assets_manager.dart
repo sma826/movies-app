@@ -9,12 +9,12 @@ class AssetsManager {
   static const String avatar8 = 'assets/images/avatar8.png';
   static const String avatar9 = 'assets/images/avatar9.png';
 
-  static const String onbarding1 = 'assets/images/onbarding1.png';
-  static const String onbarding2 = 'assets/images/onbarding2.png';
-  static const String onbarding3 = 'assets/images/onbarding3.png';
-  static const String onbarding4 = 'assets/images/onbarding4.png';
-  static const String onbarding5 = 'assets/images/onbarding5.png';
-  static const String onbarding6 = 'assets/images/onbarding6.png';
+  static const String onboarding1 = 'assets/images/onboarding1.png';
+  static const String onboarding2 = 'assets/images/onboarding2.png';
+  static const String onboarding3 = 'assets/images/onboarding3.png';
+  static const String onboarding4 = 'assets/images/onboarding4.png';
+  static const String onboarding5 = 'assets/images/onboarding5.png';
+  static const String onboarding6 = 'assets/images/onboarding6.png';
 
   static const String logo = 'assets/images/logo.png';
 

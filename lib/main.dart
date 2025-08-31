@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/onboarding/onboarding_screens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,10 +13,12 @@ class MoviesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: {},
-      // initialRoute: ,
+      routes: {
+        OnboardingScreens.nameroute: (context) => const OnboardingScreens(),
+      },
+       initialRoute: OnboardingScreens.nameroute,
       // theme: ,
       // darkTheme: ,
       // themeMode: ,
