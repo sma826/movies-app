@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/onboarding/onboariding_data.dart';
+import 'package:movies/onboarding/viewModel/onboariding_data.dart';
 
 
 class OnboardingItem extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies/onboarding/onboarding_item.dart';
-import 'package:movies/onboarding/onboariding_data.dart';
+import 'package:movies/onboarding/view/widgets/onboarding_item.dart';
+import 'package:movies/onboarding/viewModel/onboariding_data.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 
 
