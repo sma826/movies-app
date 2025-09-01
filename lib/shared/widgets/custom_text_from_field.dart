@@ -12,6 +12,8 @@ class CustomTextFromField extends StatefulWidget {
   final int? minLines;
   final int? maxLines;
   final String? Function(String?)? validator;
+  final IconData? icon;
+  final String? defaultText;
 
   const CustomTextFromField({
     super.key,
@@ -24,6 +26,8 @@ class CustomTextFromField extends StatefulWidget {
     this.minLines,
     this.maxLines,
     this.validator,
+    this.icon,
+    this.defaultText,
   });
 
   @override

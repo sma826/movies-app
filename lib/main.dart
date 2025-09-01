@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/shared/constants/apptheme.dart';
+import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,13 +14,15 @@ class MoviesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: {},
-      // initialRoute: ,
+      routes: {
+        UpdateProfileScreen.routeName: (_) => const UpdateProfileScreen()
+      },
+      initialRoute: UpdateProfileScreen.routeName,
       // theme: ,
-      // darkTheme: ,
-      // themeMode: ,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.dark,
     );
   }
 }
