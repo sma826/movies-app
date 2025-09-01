@@ -17,9 +17,9 @@ class MoviesApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         UpdateProfileScreen.routeName: (_) => const UpdateProfileScreen(),
-        OnboardingScreens.nameroute: (_) => const OnboardingScreens(),
+        OnboardingScreens.routeName: (_) => const OnboardingScreens(),
       },
-       initialRoute: OnboardingScreens.nameroute,
+      initialRoute: OnboardingScreens.routeName,
       // theme: ,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.dark,

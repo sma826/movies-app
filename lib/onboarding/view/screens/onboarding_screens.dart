@@ -5,7 +5,7 @@ import 'package:movies/shared/constants/assets_manager.dart';
 
 
 class OnboardingScreens extends StatefulWidget {
-  static const String nameroute = '/onboarding';
+  static const String routeName = '/onboarding';
   const OnboardingScreens({super.key});
 
   @override
