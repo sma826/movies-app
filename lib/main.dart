@@ -19,7 +19,7 @@ class MoviesApp extends StatelessWidget {
       routes: {
         UpdateProfileScreen.routeName: (_) => const UpdateProfileScreen()
       },
-      initialRoute: UpdateProfileScreen.routeName,
+      // initialRoute: UpdateProfileScreen.routeName,
       // theme: ,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.dark,
