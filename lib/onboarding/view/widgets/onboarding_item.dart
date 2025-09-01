@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/onboarding/viewModel/onboariding_data.dart';
-
+import '../../../login/view/screens/login_screen.dart';
 
 class OnboardingItem extends StatelessWidget {
   final int currentIndex;
@@ -65,7 +65,17 @@ class OnboardingItem extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: ontap,
+                    onPressed: () {
+                      if (currentIndex == totalPages - 1) {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ),
+                        );
+                      } else {
+                        ontap();
+                      }
+                    },
                     child: Text(
                       buttonText,
                       style: TextStyle(

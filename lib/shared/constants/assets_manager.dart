@@ -26,5 +26,5 @@ class AssetsManager {
   static const String password = 'assets/icons/password.svg';
   static const String phone = 'assets/icons/phone.svg';
   static const String updateProfileName = 'assets/icons/updateProfileName.svg';
-
+  static const String forgotpassword = 'assets/images/forgotpassword.png';
 }
