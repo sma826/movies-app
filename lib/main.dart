@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
+import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ScreenUtil.ensureScreenSize();
   runApp(const MoviesApp());
 }
 
@@ -17,9 +16,10 @@ class MoviesApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        UpdateProfileScreen.routeName: (_) => const UpdateProfileScreen()
+        UpdateProfileScreen.routeName: (_) => const UpdateProfileScreen(),
+        OnboardingScreens.nameroute: (_) => const OnboardingScreens(),
       },
-      // initialRoute: UpdateProfileScreen.routeName,
+       initialRoute: OnboardingScreens.nameroute,
       // theme: ,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.dark,
