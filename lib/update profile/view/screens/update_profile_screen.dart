@@ -31,57 +31,61 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         leading: Icon(Icons.arrow_back, color: AppTheme.yellow, size: 30),
         title: Text('Pick Avatar'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: pickAvatar,
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage(avatars[selectedIndex]),
-              ),
-            ),
-            SizedBox(height: 35),
-            DataFiller(
-              iconName: 'name',
-              icon: Icons.person,
-              defaultText: userName,
-            ),
-            SizedBox(height: 19.28),
-            DataFiller(
-              iconName: 'phone',
-              icon: Icons.phone_rounded,
-              defaultText: userPhone,
-            ),
-            SizedBox(height: 15),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Reset Password',
-                  style: Theme.of(context).textTheme.titleLarge,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: pickAvatar,
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundImage: AssetImage(avatars[selectedIndex]),
+                  ),
                 ),
-              ),
+                SizedBox(height: 35),
+                DataFiller(
+                  iconName: 'name',
+                  icon: Icons.person,
+                  defaultText: userName,
+                ),
+                SizedBox(height: 19.28),
+                DataFiller(
+                  iconName: 'phone',
+                  icon: Icons.phone_rounded,
+                  defaultText: userPhone,
+                ),
+                SizedBox(height: 15),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Reset Password',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 265),
+                CustomElevatedButton(
+                  label: 'Delete Account',
+                  onPressed: () {},
+                  borderRadius: 15,
+                  textColor: AppTheme.white,
+                  buttonColor: AppTheme.red,
+                ),
+                SizedBox(height: 15),
+                CustomElevatedButton(
+                  label: 'Update Data',
+                  onPressed: () {},
+                  borderRadius: 15,
+                  textColor: AppTheme.black,
+                  buttonColor: AppTheme.yellow,
+                ),
+              ],
             ),
-            SizedBox(height: 265),
-            CustomElevatedButton(
-              label: 'Delete Account',
-              onPressed: () {},
-              borderRadius: 15,
-              textColor: AppTheme.white,
-              buttonColor: AppTheme.red,
-            ),
-            SizedBox(height: 15),
-            CustomElevatedButton(
-              label: 'Update Data',
-              onPressed: () {},
-              borderRadius: 15,
-              textColor: AppTheme.black,
-              buttonColor: AppTheme.yellow,
-            ),
-          ],
+          ),
         ),
       ),
     );
