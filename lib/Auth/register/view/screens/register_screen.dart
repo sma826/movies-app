@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies/home/view/screens/home_screen.dart';
-import 'package:movies/login/view/screens/login_screen.dart';
-import 'package:movies/register/view/widgets/avatar_list.dart';
+import 'package:movies/Auth/login/view/screens/login_screen.dart';
+import 'package:movies/Auth/register/view/widgets/avatar_list.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';

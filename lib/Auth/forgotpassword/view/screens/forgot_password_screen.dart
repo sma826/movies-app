@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/login/view/screens/login_screen.dart';
+import 'package:movies/Auth/login/view/screens/login_screen.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';

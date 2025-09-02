@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/onboarding/viewModel/onboariding_data.dart';
-import '../../../login/view/screens/login_screen.dart';
+import '../../../Auth/login/view/screens/login_screen.dart';
 
 class OnboardingItem extends StatelessWidget {
   final int currentIndex;
