@@ -9,7 +9,7 @@ class OnboardingItem extends StatelessWidget {
   final OnboaridingData data;
   final PageController controller;
 
-  const OnboardingItem({
+  const OnboardingItem({super.key, 
     required this.data,
     required this.ontap,
     required this.currentIndex,
@@ -62,7 +62,7 @@ class OnboardingItem extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 24),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
@@ -76,19 +76,19 @@ class OnboardingItem extends StatelessWidget {
                         ontap();
                       }
                     },
-                    child: Text(
-                      buttonText,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffF6BD00),
                       foregroundColor: Colors.black,
                       fixedSize: Size(double.infinity, 55),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: Text(
+                      buttonText,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -108,19 +108,19 @@ class OnboardingItem extends StatelessWidget {
                           curve: Curves.easeInOut,
                         );
                       },
-                      child: Text(
-                        'Back',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         foregroundColor: Color(0xffF6BD00),
                         fixedSize: Size(double.infinity, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      child: Text(
+                        'Back',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),

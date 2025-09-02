@@ -8,9 +8,11 @@ import 'package:movies/shared/widgets/custom_text_from_field.dart';
 class ForgotPasswordScreen extends StatelessWidget {
   static const String routeName = '/forget-password';
 
-  TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

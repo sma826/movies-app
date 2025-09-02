@@ -9,6 +9,8 @@ import 'package:movies/shared/widgets/custom_text_from_field.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
+
+  const LoginScreen({super.key});
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -83,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 16),
                     CustomElevatedButton(
                       label: 'Login',
-                      onPressed: Login,
+                      onPressed: login,
                       buttonColor: AppTheme.yellow,
                       textColor: AppTheme.darkCharcoal,
                       fontSize: 20,
@@ -134,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 30),
                     CustomElevatedButton(
                       label: 'Login With Google',
-                      onPressed: LoginWithGoogle,
+                      onPressed: loginWithGoogle,
                       buttonColor: AppTheme.yellow,
                       textColor: AppTheme.darkCharcoal,
                       fontSize: 16,
@@ -187,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void Login() {
+  void login() {
     if (formKey.currentState!.validate()) {
       Navigator.of(
         context,
@@ -195,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void LoginWithGoogle() async {
+  void loginWithGoogle() async {
     Navigator.of(
       context,
     ).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));

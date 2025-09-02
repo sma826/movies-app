@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies/home/view/screens/home_screen.dart';
@@ -10,6 +12,8 @@ import 'package:movies/shared/widgets/custom_text_from_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = '/register';
+
+  const RegisterScreen({super.key});
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
@@ -18,8 +22,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController RepasswordController = TextEditingController();
-  TextEditingController PhoneController = TextEditingController();
+  TextEditingController repasswordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -59,7 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     AssetsManager.avatar9,
                   ],
                   onSelected: (index) {
-                    print("Avatar selected: $index");
+                    log("Avatar selected: $index");
                   },
                 ),
                 SizedBox(height: 5),
@@ -108,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 CustomTextFromField(
                   hintText: 'Confirm Password',
                   prefixIconImage: 'password',
-                  controller: RepasswordController,
+                  controller: repasswordController,
                   isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -121,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 CustomTextFromField(
                   hintText: 'Phone Number',
                   prefixIconImage: 'phone',
-                  controller: PhoneController,
+                  controller: phoneController,
                   isPassword: false,
                   validator: (value) {
                     if (value == null || value.isEmpty) {

@@ -7,7 +7,7 @@ class DataFiller extends StatefulWidget {
   final String iconName;
   final IconData icon;
 
-  DataFiller({
+  const DataFiller({
     super.key,
     required this.iconName,
     required this.icon,
