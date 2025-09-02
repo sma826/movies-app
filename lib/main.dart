@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movies/forgotpassword/view/screens/forgot_password_screen.dart';
+import 'package:movies/login/view/screens/login_screen.dart';
+import 'package:movies/register/view/screens/register_screen.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
 import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
@@ -18,6 +21,9 @@ class MoviesApp extends StatelessWidget {
       routes: {
         UpdateProfileScreen.routeName: (_) => const UpdateProfileScreen(),
         OnboardingScreens.routeName: (_) => const OnboardingScreens(),
+        LoginScreen.routeName: (_) => LoginScreen(),
+        RegisterScreen.routeName: (_) => RegisterScreen(),
+        ForgotPasswordScreen.routeName: (_) => ForgotPasswordScreen(),
       },
       initialRoute: OnboardingScreens.routeName,
       // theme: ,
