@@ -2,18 +2,20 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/Auth/login/view/screens/login_screen.dart';
 import 'package:movies/Auth/register/view/widgets/avatar_list.dart';
+import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/shared/widgets/custom_text_from_field.dart';
+import 'package:movies/update%20profile/view%20model/avatar_data.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = '/register';
 
   const RegisterScreen({super.key});
+
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
@@ -37,9 +39,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         foregroundColor: AppTheme.yellow,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginScreen()),
-          ),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+          },
         ),
       ),
       body: SingleChildScrollView(
@@ -51,17 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AvatarSelector(
-                  avatars: [
-                    AssetsManager.avatar1,
-                    AssetsManager.avatar8,
-                    AssetsManager.avatar2,
-                    AssetsManager.avatar4,
-                    AssetsManager.avatar5,
-                    AssetsManager.avatar6,
-                    AssetsManager.avatar7,
-                    AssetsManager.avatar3,
-                    AssetsManager.avatar9,
-                  ],
+                  avatars: AvatarData.avatarsList,
                   onSelected: (index) {
                     log("Avatar selected: $index");
                   },
@@ -155,9 +147,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ).textTheme.titleSmall!.copyWith(color: AppTheme.white),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                      ),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, LoginScreen.routeName);
+                      },
                       child: Text(
                         'Login',
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -185,10 +178,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: SvgPicture.asset('assets/icons/LR.svg'),
+                            child: SvgPicture.asset(AssetsManager.english),
                           ),
                           const SizedBox(width: 20, height: 30),
-                          SvgPicture.asset('assets/icons/EG.svg'),
+                          SvgPicture.asset(AssetsManager.egypt),
                         ],
                       ),
                     ),
@@ -204,9 +197,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void createAccount() {
     if (formKey.currentState!.validate()) {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     }
   }
 }
