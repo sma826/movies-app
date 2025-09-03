@@ -3,11 +3,12 @@ import 'package:movies/shared/widgets/avatars_list.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/update%20profile/view/widgets/data_filler.dart';
 
+import '../../../Auth/forgotpassword/view/screens/forgot_password_screen.dart';
 import '../../../shared/constants/apptheme.dart';
 import '../../view model/avatar_data.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  static const String routeName = '/update_profile';
+  static const String routeName = '/updateProfile';
 
   const UpdateProfileScreen({super.key});
 
@@ -60,32 +61,48 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ForgotPasswordScreen(from: 'updateProfile'),
+                        ),
+                      );
+                    },
                     child: Text(
                       'Reset Password',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                 ),
-                SizedBox(height: 265),
-                CustomElevatedButton(
-                  label: 'Delete Account',
-                  onPressed: () {},
-                  borderRadius: 15,
-                  textColor: AppTheme.white,
-                  buttonColor: AppTheme.red,
-                ),
-                SizedBox(height: 15),
-                CustomElevatedButton(
-                  label: 'Update Data',
-                  onPressed: () {},
-                  borderRadius: 15,
-                  textColor: AppTheme.black,
-                  buttonColor: AppTheme.yellow,
-                ),
+
+                // SizedBox(height: 265),
               ],
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomElevatedButton(
+              label: 'Delete Account',
+              onPressed: () {},
+              borderRadius: 15,
+              textColor: AppTheme.white,
+              buttonColor: AppTheme.red,
+            ),
+            SizedBox(height: 15),
+            CustomElevatedButton(
+              label: 'Update Data',
+              onPressed: () {},
+              borderRadius: 15,
+              textColor: AppTheme.black,
+              buttonColor: AppTheme.yellow,
+            ),
+          ],
         ),
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies/Auth/forgotpassword/view/screens/forgot_password_screen.dart';
-import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/Auth/register/view/screens/register_screen.dart';
+import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/shared/widgets/custom_text_from_field.dart';
@@ -73,7 +73,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextButton(
                         onPressed: () => Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => ForgotPasswordScreen(),
+                            builder: (context) =>
+                                ForgotPasswordScreen(from: 'login',),
                           ),
                         ),
                         child: const Text(

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movies/Auth/forgotpassword/view/screens/forgot_password_screen.dart';
 import 'package:movies/Auth/login/view/screens/login_screen.dart';
 import 'package:movies/Auth/register/view/screens/register_screen.dart';
+import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
-import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +23,9 @@ class MoviesApp extends StatelessWidget {
         OnboardingScreens.routeName: (_) => const OnboardingScreens(),
         LoginScreen.routeName: (_) => LoginScreen(),
         RegisterScreen.routeName: (_) => RegisterScreen(),
-        ForgotPasswordScreen.routeName: (_) => ForgotPasswordScreen(),
+        ForgotPasswordScreen.routeName: (_) => ForgotPasswordScreen(from: "",),
       },
-      initialRoute: OnboardingScreens.routeName,
+      initialRoute: UpdateProfileScreen.routeName,
       // theme: ,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.dark,
