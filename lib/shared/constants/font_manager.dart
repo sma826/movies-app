@@ -5,11 +5,13 @@ class FontSizes {
   static const double s16 = 16;
   static const double s20 = 20;
   static const double s24 = 24;
+  static const double s36 = 36;
 }
 
 class FontWeightManager {
   static const FontWeight fw400 = FontWeight.w400;
   static const FontWeight fw500 = FontWeight.w500;
+  static const FontWeight fw600 = FontWeight.w600;
 }
 
 class FontStyleManager {
@@ -18,4 +20,5 @@ class FontStyleManager {
 
 class RadiusSizes {
   static const double r16 = 16;
+  static const double r40 = 40;
 }

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:movies/onboarding/viewModel/onboariding_data.dart';
+import 'package:movies/onboarding/data/models/onboarding_model.dart';
+import 'package:movies/shared/constants/apptheme.dart';
+import 'package:movies/shared/constants/font_manager.dart';
 import '../../../Auth/login/view/screens/login_screen.dart';
 
 class OnboardingItem extends StatelessWidget {
   final int currentIndex;
   final int totalPages;
   final VoidCallback ontap;
-  final OnboaridingData data;
+  final OnboardingModel data;
   final PageController controller;
 
-  const OnboardingItem({super.key, 
+  const OnboardingItem({
+    super.key,
     required this.data,
     required this.ontap,
     required this.currentIndex,
@@ -19,6 +22,7 @@ class OnboardingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     String buttonText = 'Explore Now';
     if (currentIndex > 0 && currentIndex < totalPages - 1) {
       buttonText = 'Next';
@@ -29,56 +33,57 @@ class OnboardingItem extends StatelessWidget {
       children: [
         Image.asset(
           data.image,
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
           width: double.infinity,
-          height: double.infinity,
+          // height: double.infinity,
         ),
         Positioned(
-          bottom: 0,
+          bottom: currentIndex != totalPages - 1 ? 0 : 20,
           left: 0,
           right: 0,
           child: Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: currentIndex == 0 ? Colors.transparent : Color(0xff121312),
-              borderRadius: BorderRadius.circular(40),
+              color: currentIndex == 0 ? Colors.transparent : AppTheme.primary,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(RadiusSizes.r40),
+                topRight: Radius.circular(RadiusSizes.r40),
+              ),
             ),
             child: Column(
               children: [
+                const SizedBox(height: 24),
                 Text(
                   data.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 36,
-                    color: Colors.white,
-                  ),
+                  style: currentIndex == 0
+                      ? textTheme.displaySmall
+                      : textTheme.headlineSmall,
+                  textAlign: TextAlign.center,
                 ),
-                Text(
+                const SizedBox(height: 24,),
+                currentIndex != totalPages - 1 ? Text(
                   data.description,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 24),
+                  style: currentIndex == 0
+                      ? textTheme.titleLarge!.copyWith(color: AppTheme.gray)
+                      : textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ) : SizedBox(),
+                const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
                       if (currentIndex == totalPages - 1) {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
-                          ),
-                        );
+                        Navigator.of(
+                          context,
+                        ).pushReplacementNamed(LoginScreen.routeName);
                       } else {
                         ontap();
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffF6BD00),
-                      foregroundColor: Colors.black,
+                      backgroundColor: AppTheme.yellow,
+                      foregroundColor: AppTheme.black,
                       fixedSize: Size(double.infinity, 55),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -86,9 +91,9 @@ class OnboardingItem extends StatelessWidget {
                     ),
                     child: Text(
                       buttonText,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
+                      style: textTheme.titleLarge!.copyWith(
+                        fontWeight: FontWeightManager.fw600,
+                        color: AppTheme.black
                       ),
                     ),
                   ),
@@ -98,7 +103,7 @@ class OnboardingItem extends StatelessWidget {
                     margin: EdgeInsets.only(top: 16),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xffF6BD00)),
+                      border: Border.all(color: AppTheme.yellow),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: ElevatedButton(
@@ -109,8 +114,8 @@ class OnboardingItem extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        foregroundColor: Color(0xffF6BD00),
+                        backgroundColor: AppTheme.primary,
+                        foregroundColor: AppTheme.yellow,
                         fixedSize: Size(double.infinity, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
