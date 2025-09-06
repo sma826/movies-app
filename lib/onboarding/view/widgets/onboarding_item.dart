@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movies/onboarding/viewModel/onboariding_data.dart';
-import '../../../Auth/login/view/screens/login_screen.dart';
 
 class OnboardingItem extends StatelessWidget {
   final int currentIndex;
@@ -9,7 +8,7 @@ class OnboardingItem extends StatelessWidget {
   final OnboaridingData data;
   final PageController controller;
 
-  const OnboardingItem({super.key, 
+  const OnboardingItem({
     required this.data,
     required this.ontap,
     required this.currentIndex,
@@ -62,33 +61,23 @@ class OnboardingItem extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 24),
-                SizedBox(
+                Container(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (currentIndex == totalPages - 1) {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
-                          ),
-                        );
-                      } else {
-                        ontap();
-                      }
-                    },
+                    onPressed: ontap,
+                    child: Text(
+                      buttonText,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffF6BD00),
                       foregroundColor: Colors.black,
                       fixedSize: Size(double.infinity, 55),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    child: Text(
-                      buttonText,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -108,19 +97,19 @@ class OnboardingItem extends StatelessWidget {
                           curve: Curves.easeInOut,
                         );
                       },
+                      child: Text(
+                        'Back',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         foregroundColor: Color(0xffF6BD00),
                         fixedSize: Size(double.infinity, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                      child: Text(
-                        'Back',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
