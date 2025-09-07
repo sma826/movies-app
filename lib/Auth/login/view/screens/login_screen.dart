@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.09),
                     CustomTextFromField(
                       hintText: 'Email',
-                      prefixIconImage: 'email',
+                      prefixIconImage: AssetsManager.email,
                       controller: emailController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 20),
                     CustomTextFromField(
                       hintText: 'Password',
-                      prefixIconImage: 'password',
+                      prefixIconImage: AssetsManager.password,
                       controller: passwordController,
                       isPassword: true,
                       validator: (value) {
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () => Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (context) =>
-                                ForgotPasswordScreen(from: 'login'),
+                                ForgotPasswordScreen(),
                           ),
                         ),
                         child: const Text(

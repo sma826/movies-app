@@ -65,7 +65,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              ForgotPasswordScreen(from: 'updateProfile'),
+                              ForgotPasswordScreen(),
                         ),
                       );
                     },

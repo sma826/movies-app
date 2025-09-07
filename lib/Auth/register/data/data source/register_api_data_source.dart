@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:movies/shared/constants/api_constants.dart';
@@ -25,8 +26,8 @@ class RegisterApiDataSource {
       }),
     );
     final data = jsonDecode(response.body);
-    print("📌 Status Code: ${response.statusCode}");
-    print("📌 Body: $data");
+    log("📌 Status Code: ${response.statusCode}");
+    log("📌 Body: $data");
 
     if (response.statusCode == 201) {
       return {
