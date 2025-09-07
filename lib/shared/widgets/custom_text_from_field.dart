@@ -59,7 +59,7 @@ class _CustomTextFromFieldState extends State<CustomTextFromField> {
             ? Padding(
                 padding: const EdgeInsets.all(12),
                 child: SvgPicture.asset(
-                  'assets/icons/${widget.prefixIconImage}.svg',
+                  widget.prefixIconImage!,
                   height: 24,
                   width: 24,
                   fit: BoxFit.contain,
