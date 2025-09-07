@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/Auth/forgotpassword/view/screens/forgot_password_screen.dart';
 import 'package:movies/Auth/login/view/screens/login_screen.dart';
 import 'package:movies/Auth/register/view/screens/register_screen.dart';
+import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
@@ -19,6 +20,7 @@ class MoviesApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
+        HomeScreen.routeName: (_) => const HomeScreen(),
         UpdateProfileScreen.routeName: (_) => const UpdateProfileScreen(),
         OnboardingScreens.routeName: (_) => const OnboardingScreens(),
         LoginScreen.routeName: (_) => LoginScreen(),

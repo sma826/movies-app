@@ -31,13 +31,13 @@ class AppTheme {
     ),
 
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: primary,
+      backgroundColor: darkCharcoal,
       selectedItemColor: yellow,
       unselectedItemColor: white,
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      enableFeedback: true,
+      enableFeedback: false,
       elevation: 3,
     ),
 
