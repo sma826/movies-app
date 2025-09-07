@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:movies/Auth/register/data/data%20source/register_api_data_source.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +24,7 @@ class RegisterRepository {
       phone: phone,
       avatarId: avatarId,
     );
-    print('API Response : $data');
+    log('API Response : $data');
 
     if (data["statusCode"] == 201 && data["data"] != null) {
       final sharedData = await SharedPreferences.getInstance();
@@ -33,10 +35,10 @@ class RegisterRepository {
       await sharedData.setString("phone", user["phone"]);
       await sharedData.setString("avatarId", user["avaterId"].toString());
 
-      print("✅ Saved user data: $user");
+      log("✅ Saved user data: $user");
       return data;
     } else {
-      print("❌ Register failed: ${data["message"]}");
+      log("❌ Register failed: ${data["message"]}");
       throw Exception(data["message"] ?? "Registration failed");
     }
   }

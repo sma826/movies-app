@@ -8,7 +8,6 @@ import 'package:movies/Auth/register/view%20model/register_view_model.dart';
 import 'package:movies/Auth/register/view/bloc/register_event.dart';
 import 'package:movies/Auth/register/view/bloc/register_state.dart';
 import 'package:movies/Auth/register/view/widgets/avatar_list.dart';
-import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/shared/widgets/custom_text_from_field.dart';
@@ -56,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text('Registration Successful')));
-            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            Navigator.pushReplacementNamed(context, LoginScreen.routeName);
           } else if (state is RegisterError) {
             ScaffoldMessenger.of(
               context,
