@@ -43,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         centerTitle: true,
         backgroundColor: AppTheme.primary,
         foregroundColor: AppTheme.yellow,
-        leading: IconButton(
+        leading:  IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -56,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text('Registration Successful')));
-            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            Navigator.pushReplacementNamed(context, LoginScreen.routeName);
           } else if (state is RegisterError) {
             ScaffoldMessenger.of(
               context,
@@ -264,7 +264,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       showError("Please select an avatar");
       return;
     }
-
     context.read<RegisterViewModel>().add(
       RegisterEvent(
         name,

@@ -9,7 +9,6 @@ import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
-
 import 'Auth/register/data/data source/register_api_data_source.dart';
 
 void main() async {

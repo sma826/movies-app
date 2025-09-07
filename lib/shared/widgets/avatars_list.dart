@@ -29,6 +29,7 @@ class AvatarsList extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               onAvatarSelected(index);
+              Navigator.of(context).pop();
             },
             child: Container(
               decoration: BoxDecoration(
