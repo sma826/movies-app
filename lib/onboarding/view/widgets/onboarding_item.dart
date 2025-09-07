@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/onboarding/viewModel/onboariding_data.dart';
 import 'package:movies/onboarding/data/models/onboarding_model.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/font_manager.dart';
@@ -96,6 +97,7 @@ class OnboardingItem extends StatelessWidget {
                         color: AppTheme.black
                       ),
                     ),
+
                   ),
                 ),
                 if (currentIndex >= 2 && currentIndex <= totalPages - 1)
@@ -113,19 +115,19 @@ class OnboardingItem extends StatelessWidget {
                           curve: Curves.easeInOut,
                         );
                       },
+                      child: Text(
+                        'Back',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.primary,
                         foregroundColor: AppTheme.yellow,
                         fixedSize: Size(double.infinity, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                      child: Text(
-                        'Back',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
