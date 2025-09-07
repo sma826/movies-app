@@ -17,6 +17,7 @@ class AssetsManager {
   static const String onboarding6 = 'assets/images/onboarding6.png';
 
   static const String logo = 'assets/images/logo.png';
+  static const String forgotpassword = 'assets/images/forgotpassword.png';
 
   static const String EG = 'assets/icons/EG.svg';
   static const String email = 'assets/icons/email.svg';
@@ -26,5 +27,12 @@ class AssetsManager {
   static const String password = 'assets/icons/password.svg';
   static const String phone = 'assets/icons/phone.svg';
   static const String updateProfileName = 'assets/icons/updateProfileName.svg';
-  static const String forgotpassword = 'assets/images/forgotpassword.png';
+  static const String homeIcon = 'assets/icons/home.svg';
+  static const String searchIcon = 'assets/icons/search.svg';
+  static const String browseIcon = 'assets/icons/browse.svg';
+  static const String profileIcon = 'assets/icons/profile.svg';
+  static const String homeSelectedIcon = 'assets/icons/home_selected.svg';
+  static const String searchSelectedIcon = 'assets/icons/search_selected.svg';
+  static const String browseSelectedIcon = 'assets/icons/browse_selected.svg';
+  static const String profileSelectedIcon = 'assets/icons/profile_selected.svg';
 }

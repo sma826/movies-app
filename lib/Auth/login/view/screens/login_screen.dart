@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies/Auth/forgotpassword/view/screens/forgot_password_screen.dart';
-import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/Auth/register/view/screens/register_screen.dart';
+import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/shared/constants/apptheme.dart';
+import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/shared/widgets/custom_text_from_field.dart';
 
@@ -11,6 +12,7 @@ class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
 
   const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -38,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/logo.png',
+                      AssetsManager.logo,
                       height: MediaQuery.sizeOf(context).height * 0.12,
                       fit: BoxFit.contain,
                     ),
@@ -73,7 +75,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextButton(
                         onPressed: () => Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => ForgotPasswordScreen(),
+                            builder: (context) =>
+                                ForgotPasswordScreen(from: 'login'),
                           ),
                         ),
                         child: const Text(
@@ -102,12 +105,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               .copyWith(color: AppTheme.white),
                         ),
                         TextButton(
-                          onPressed: () =>
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterScreen(),
-                                ),
-                              ),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              RegisterScreen.routeName,
+                            );
+                          },
                           child: Text(
                             'Create One',
                             style: Theme.of(context).textTheme.titleSmall!
@@ -143,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.w400,
                       borderRadius: 15,
                       icon: SvgPicture.asset(
-                        'assets/icons/google_icon.svg',
+                        AssetsManager.googleIcon,
                         height: 24,
                         width: 24,
                       ),
@@ -170,10 +173,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: SvgPicture.asset('assets/icons/LR.svg'),
+                                child: SvgPicture.asset(AssetsManager.english),
                               ),
                               const SizedBox(width: 20, height: 30),
-                              SvgPicture.asset('assets/icons/EG.svg'),
+                              SvgPicture.asset(AssetsManager.egypt),
                             ],
                           ),
                         ),

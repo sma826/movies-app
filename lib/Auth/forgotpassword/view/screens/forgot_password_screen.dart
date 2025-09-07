@@ -4,15 +4,17 @@ import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/shared/widgets/custom_text_from_field.dart';
+import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   static const String routeName = '/forget-password';
+  final String from;
 
   final TextEditingController emailController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  ForgotPasswordScreen({super.key});
+  ForgotPasswordScreen({super.key, required this.from});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,14 @@ class ForgotPasswordScreen extends StatelessWidget {
         foregroundColor: AppTheme.yellow,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginScreen()),
-          ),
+            onPressed: () {
+              if (from == 'login') {
+                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+              } else if (from == 'updateProfile') {
+                Navigator.pushReplacementNamed(
+                    context, UpdateProfileScreen.routeName);
+              }
+            }
         ),
       ),
       body: SingleChildScrollView(

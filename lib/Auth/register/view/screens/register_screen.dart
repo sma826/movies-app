@@ -42,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         centerTitle: true,
         backgroundColor: AppTheme.primary,
         foregroundColor: AppTheme.yellow,
-        leading: IconButton(
+        leading:  IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -263,7 +263,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       showError("Please select an avatar");
       return;
     }
-
     context.read<RegisterViewModel>().add(
       RegisterEvent(
         name,
