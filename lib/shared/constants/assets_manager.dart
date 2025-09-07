@@ -19,10 +19,10 @@ class AssetsManager {
   static const String logo = 'assets/images/logo.png';
   static const String forgotpassword = 'assets/images/forgotpassword.png';
 
-  static const String EG = 'assets/icons/EG.svg';
+  static const String egypt = 'assets/icons/egypt.svg';
   static const String email = 'assets/icons/email.svg';
-  static const String google_icon = 'assets/icons/google_icon.svg';
-  static const String LR = 'assets/icons/LR.svg';
+  static const String googleIcon = 'assets/icons/google_icon.svg';
+  static const String english = 'assets/icons/english.svg';
   static const String name = 'assets/icons/name.svg';
   static const String password = 'assets/icons/password.svg';
   static const String phone = 'assets/icons/phone.svg';

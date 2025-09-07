@@ -9,6 +9,7 @@ import 'package:movies/Auth/register/view/bloc/register_event.dart';
 import 'package:movies/Auth/register/view/bloc/register_state.dart';
 import 'package:movies/Auth/register/view/widgets/avatar_list.dart';
 import 'package:movies/shared/constants/apptheme.dart';
+import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/shared/widgets/custom_text_from_field.dart';
 import 'package:movies/shared/widgets/loading_indicator.dart';
@@ -89,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: 16),
                     CustomTextFromField(
                       hintText: 'Name',
-                      prefixIconImage: 'name',
+                      prefixIconImage: AssetsManager.name,
                       controller: nameController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -101,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: 20),
                     CustomTextFromField(
                       hintText: 'Email',
-                      prefixIconImage: 'email',
+                      prefixIconImage: AssetsManager.email,
                       controller: emailController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -116,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: 20),
                     CustomTextFromField(
                       hintText: 'Password',
-                      prefixIconImage: 'password',
+                      prefixIconImage: AssetsManager.password,
                       controller: passwordController,
                       isPassword: true,
                       validator: (value) {
@@ -129,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: 20),
                     CustomTextFromField(
                       hintText: 'Confirm Password',
-                      prefixIconImage: 'password',
+                      prefixIconImage: AssetsManager.password,
                       controller: confirmPasswordController,
                       isPassword: true,
                       validator: (value) {
@@ -144,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: 20),
                     CustomTextFromField(
                       hintText: 'Phone Number',
-                      prefixIconImage: 'phone',
+                      prefixIconImage: AssetsManager.phone,
                       controller: phoneController,
                       isPassword: false,
                       validator: (value) {
@@ -179,10 +180,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         TextButton(
                           onPressed: () =>
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
+                              Navigator.of(context).pushReplacementNamed(
+                                LoginScreen.routeName
                               ),
                           child: Text(
                             'Login',
@@ -213,10 +212,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: SvgPicture.asset('assets/icons/LR.svg'),
+                                child: SvgPicture.asset(AssetsManager.english),
                               ),
                               const SizedBox(width: 20, height: 30),
-                              SvgPicture.asset('assets/icons/EG.svg'),
+                              SvgPicture.asset(AssetsManager.egypt),
                             ],
                           ),
                         ),
