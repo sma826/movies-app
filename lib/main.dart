@@ -15,9 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final apiDataSource = RegisterApiDataSource();
   final repository = RegisterRepository(apiDataSource);
-  runApp(
-    MoviesApp(repository: repository),
-  );
+  runApp(MoviesApp(repository: repository));
 }
 
 class MoviesApp extends StatelessWidget {
@@ -39,7 +37,7 @@ class MoviesApp extends StatelessWidget {
           ForgotPasswordScreen.routeName: (_) => ForgotPasswordScreen(),
           HomeScreen.routeName: (_) => HomeScreen(),
         },
-        initialRoute: RegisterScreen.routeName,
+        initialRoute: HomeScreen.routeName,
         // theme: ,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.dark,

@@ -12,6 +12,13 @@ class AppTheme {
   static const Color transparentYellow = Color(0xFFF6BD00);
   static const Color grey = Color(0xFF282A28);
 
+  // TODO: gradient colors
+  static const Color gradientTop = Color.fromRGBO(18, 19, 18, 0.8);
+  static const Color gradientMiddle = Color.fromRGBO(18, 19, 18, 0.6);
+  static const Color gradientBottom = Color(0xFF121312);
+
+  // Black with opacity 0.7
+  static const Color black70 = Color.fromARGB(179, 0, 0, 0);
 
   static ThemeData lightTheme = ThemeData();
 
@@ -26,7 +33,7 @@ class AppTheme {
         color: yellow,
         fontSize: FontSizes.s16,
         fontWeight: FontWeightManager.fw400,
-        fontFamily: FontStyleManager.fontFamily
+        fontFamily: FontStyleManager.fontFamily,
       ),
     ),
 
@@ -46,7 +53,7 @@ class AppTheme {
         fontSize: FontSizes.s16,
         fontWeight: FontWeightManager.fw400,
         color: white,
-        fontFamily: FontStyleManager.fontFamily
+        fontFamily: FontStyleManager.fontFamily,
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: darkCharcoal),
@@ -69,7 +76,9 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: primary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(RadiusSizes.r16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(RadiusSizes.r16),
+        ),
       ),
     ),
 
@@ -78,7 +87,7 @@ class AppTheme {
         fontSize: FontSizes.s36,
         fontWeight: FontWeightManager.fw500,
         fontFamily: FontStyleManager.fontFamily,
-        color: white
+        color: white,
       ),
       headlineSmall: TextStyle(
         fontSize: FontSizes.s24,

@@ -35,4 +35,8 @@ class AssetsManager {
   static const String searchSelectedIcon = 'assets/icons/search_selected.svg';
   static const String browseSelectedIcon = 'assets/icons/browse_selected.svg';
   static const String profileSelectedIcon = 'assets/icons/profile_selected.svg';
+
+  // TODO : HOME TAP
+  static const String availablenow = 'assets/images/availablenow.png';
+  static const String watchnow = 'assets/images/watchnow.png';
 }

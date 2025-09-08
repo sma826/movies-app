@@ -16,24 +16,37 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  final GlobalKey<HomeTabState> homeTabKey = GlobalKey<HomeTabState>();
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> tabs = [HomeTab(), SearchTab(), BrowseTab(), ProfileTab()];
+    List<Widget> tabs = [
+      HomeTab(key: homeTabKey),
+      const SearchTab(),
+      const BrowseTab(),
+      const ProfileTab(),
+    ];
+
     return Scaffold(
-      body: tabs[_currentIndex],
+      body: IndexedStack(index: _currentIndex, children: tabs),
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
-        padding: EdgeInsets.only(top: 0, bottom: 9, left: 9, right: 9),
+        padding: const EdgeInsets.only(top: 0, bottom: 9, left: 9, right: 9),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: BottomNavigationBar(
             currentIndex: _currentIndex,
             elevation: 0,
             onTap: (index) {
-              if (_currentIndex == index) return;
-              _currentIndex = index;
-              setState(() {});
+              if (_currentIndex == index && index == 0) {
+                homeTabKey.currentState?.refreshCategory();
+              } else {
+                _currentIndex = index;
+                setState(() {});
+                if (index == 0) {
+                  homeTabKey.currentState?.refreshCategory();
+                }
+              }
             },
             items: [
               BottomNavigationBarItem(
