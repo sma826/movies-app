@@ -198,7 +198,7 @@ class HomeTabState extends State<HomeTab> {
                                           ),
                                     ),
                                     InkWell(
-                                      onTap: _incrementGenre,
+                                      onTap: () {},
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [

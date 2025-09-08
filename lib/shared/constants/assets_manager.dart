@@ -39,4 +39,5 @@ class AssetsManager {
   // TODO : HOME TAP
   static const String availablenow = 'assets/images/availablenow.png';
   static const String watchnow = 'assets/images/watchnow.png';
+  static const String placeholder = 'assets/images/placeholder.png';
 }
