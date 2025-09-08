@@ -37,7 +37,7 @@ class AssetsManager {
   static const String profileSelectedIcon = 'assets/icons/profile_selected.svg';
 
   // TODO : HOME TAP
-  static const String availableNow = 'assets/images/availablenow.png';
-  static const String watchNow = 'assets/images/watchnow.png';
-  static const String placeHolder = 'assets/images/placeholder.png';
+  static const String availablenow = 'assets/images/availablenow.png';
+  static const String watchnow = 'assets/images/watchnow.png';
+  static const String placeholder = 'assets/images/placeholder.png';
 }
