@@ -52,7 +52,7 @@ class FeaturedMoviesCarousel extends StatelessWidget {
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(
-                        AssetsManager.placeholder,
+                        AssetsManager.placeHolder,
                         width: carouselItemWidth,
                         height: carouselItemHeight,
                         fit: BoxFit.cover,

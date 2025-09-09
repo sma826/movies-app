@@ -7,6 +7,7 @@ import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/shared/widgets/custom_text_from_field.dart';
+import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
