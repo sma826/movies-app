@@ -5,6 +5,8 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Profile', style: TextStyle(color: Colors.white)));
+    return const Center(
+      child: Text('Profile', style: TextStyle(color: Colors.white)),
+    );
   }
 }

@@ -43,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         centerTitle: true,
         backgroundColor: AppTheme.primary,
         foregroundColor: AppTheme.yellow,
-        leading:  IconButton(
+        leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -179,10 +179,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               .copyWith(color: AppTheme.white),
                         ),
                         TextButton(
-                          onPressed: () =>
-                              Navigator.of(context).pushReplacementNamed(
-                                LoginScreen.routeName
-                              ),
+                          onPressed: () => Navigator.of(
+                            context,
+                          ).pushReplacementNamed(LoginScreen.routeName),
                           child: Text(
                             'Login',
                             style: Theme.of(context).textTheme.titleSmall!

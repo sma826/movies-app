@@ -5,6 +5,8 @@ class BrowseTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('browse', style: TextStyle(color: Colors.white),));
+    return const Center(
+      child: Text('browse', style: TextStyle(color: Colors.white)),
+    );
   }
 }
