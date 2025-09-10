@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/Auth/login/data/data_sources/local/login_shared_pref_data_source.dart';
 import 'package:movies/shared/widgets/avatars_list.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/update%20profile/data/data_source/profile_api_data_source.dart';
@@ -29,93 +30,108 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final List<String> avatars = AvatarData.avatarsList;
   int selectedIndex = 0;
   bool isinitalized = false;
+  ProfileCubit? profileCubit;
 
-  @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   context.read<ProfileCubit>().fetchProfile();
-  // }
-  @override
-  Widget build(BuildContext context) {
-    final token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmRjZGJhZDdmZGMxYWRlOTM3NDMzYSIsImVtYWlsIjoiaGFzc2FuMTJAZ21haWwuY29tIiwiaWF0IjoxNzU3NDI5Mzk4fQ.cAhpyuVwBWlerjUNk6fFufGKx_wX_YhLglgu-WqDemY";
+  void initcubit() async {
+    final token = await LoginSharedPrefDataSource().getToken();
+
     final dio = Dio();
     final dataSource = ProfileApiDataSource(dio);
     final repository = ProfileRepository(dataSource);
 
-    return BlocProvider(
-      create: (context) => ProfileCubit(repository, token)..fetchProfile(),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: Icon(Icons.arrow_back, color: AppTheme.yellow, size: 30),
-          title: Text('Pick Avatar'),
-        ),
-        body: BlocBuilder<ProfileCubit, ProfileState>(
-          builder: (_, state) {
-            if (state is ProfileLoading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state is ProfileSuccess) {
-              if (!isinitalized) {
-                nameController.text = state.profile.name;
-                phoneController.text = state.profile.phone;
-                selectedIndex = state.profile.avaterId;
-                isinitalized = true;
-              }
+    final cubit = ProfileCubit(repository, token);
+    cubit.fetchProfile();
+    setState(() {
+      profileCubit = cubit;
+    });
+  }
 
-              return SafeArea(child: buildprofile());
-            } else if (state is ProfileError) {
-              return Center(
-                child: Text(
-                  'Error: ${state.message}',
-                  style: TextStyle(color: AppTheme.white),
+  @override
+  void initState() {
+    initcubit();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return profileCubit == null
+        ? Center(child: CircularProgressIndicator())
+        : BlocProvider.value(
+            value: profileCubit!,
+            child: Scaffold(
+              appBar: AppBar(
+                leading: Icon(
+                  Icons.arrow_back,
+                  color: AppTheme.yellow,
+                  size: 30,
                 ),
-              );
-            } else {
-              return SizedBox();
-            }
-          },
-        ),
+                title: Text('Pick Avatar'),
+              ),
+              body: BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (_, state) {
+                  if (state is ProfileLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state is ProfileSuccess) {
+                    if (!isinitalized) {
+                      nameController.text = state.profile.name;
+                      phoneController.text = state.profile.phone;
+                      selectedIndex = state.profile.avaterId;
+                      isinitalized = true;
+                    }
 
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Builder(
-                builder: (context) {
-                  return CustomElevatedButton(
-                    label: 'Delete Account',
-                    onPressed: () {
-                      context.read<ProfileCubit>().deleteProfile(context);
-                    },
-                    borderRadius: 15,
-                    textColor: AppTheme.white,
-                    buttonColor: AppTheme.red,
-                  );
+                    return SafeArea(child: buildprofile());
+                  } else if (state is ProfileError) {
+                    return Center(
+                      child: Text(
+                        'Error: ${state.message}',
+                        style: TextStyle(color: AppTheme.white),
+                      ),
+                    );
+                  } else {
+                    return SizedBox();
+                  }
                 },
               ),
-              SizedBox(height: 15),
-              Builder(
-                builder: (context) => CustomElevatedButton(
-                  label: 'Update Data',
-                  onPressed: () {
-                    context.read<ProfileCubit>().updateProfile(
-                      nameController.text,
-                      phoneController.text,
-                      selectedIndex,
-                    );
-                  },
-                  borderRadius: 15,
-                  textColor: AppTheme.black,
-                  buttonColor: AppTheme.yellow,
+
+              bottomNavigationBar: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Builder(
+                      builder: (context) {
+                        return CustomElevatedButton(
+                          label: 'Delete Account',
+                          onPressed: () {
+                            context.read<ProfileCubit>().deleteProfile(context);
+                          },
+                          borderRadius: 15,
+                          textColor: AppTheme.white,
+                          buttonColor: AppTheme.red,
+                        );
+                      },
+                    ),
+                    SizedBox(height: 15),
+                    Builder(
+                      builder: (context) => CustomElevatedButton(
+                        label: 'Update Data',
+                        onPressed: () {
+                          context.read<ProfileCubit>().updateProfile(
+                            nameController.text,
+                            phoneController.text,
+                            selectedIndex,
+                          );
+                        },
+                        borderRadius: 15,
+                        textColor: AppTheme.black,
+                        buttonColor: AppTheme.yellow,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 
   Widget buildprofile() {

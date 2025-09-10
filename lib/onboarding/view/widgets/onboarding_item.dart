@@ -60,14 +60,18 @@ class OnboardingItem extends StatelessWidget {
                       : textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 24,),
-                currentIndex != totalPages - 1 ? Text(
-                  data.description,
-                  style: currentIndex == 0
-                      ? textTheme.titleLarge!.copyWith(color: AppTheme.gray)
-                      : textTheme.titleLarge,
-                  textAlign: TextAlign.center,
-                ) : SizedBox(),
+                const SizedBox(height: 24),
+                currentIndex != totalPages - 1
+                    ? Text(
+                        data.description,
+                        style: currentIndex == 0
+                            ? textTheme.titleLarge!.copyWith(
+                                color: AppTheme.gray,
+                              )
+                            : textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      )
+                    : SizedBox(),
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
@@ -93,10 +97,9 @@ class OnboardingItem extends StatelessWidget {
                       buttonText,
                       style: textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeightManager.fw600,
-                        color: AppTheme.black
+                        color: AppTheme.black,
                       ),
                     ),
-
                   ),
                 ),
                 if (currentIndex >= 2 && currentIndex <= totalPages - 1)
