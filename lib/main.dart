@@ -1,32 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/Auth/forgotpassword/view/screens/forgot_password_screen.dart';
+import 'package:movies/Auth/login/data/repositories/login_repository.dart';
 import 'package:movies/Auth/login/view/screens/login_screen.dart';
+import 'package:movies/Auth/login/viewModel/login_view_model.dart';
 import 'package:movies/Auth/register/data/repositories/register_repository.dart';
 import 'package:movies/Auth/register/view%20model/register_view_model.dart';
 import 'package:movies/Auth/register/view/screens/register_screen.dart';
 import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
+import 'package:movies/shared/bloc_observer.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
 import 'Auth/register/data/data source/register_api_data_source.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
   final apiDataSource = RegisterApiDataSource();
-  final repository = RegisterRepository(apiDataSource);
-  runApp(MoviesApp(repository: repository));
+  final registerRepository = RegisterRepository(apiDataSource);
+  final loginRepository = LoginRepository();
+  runApp(
+    MoviesApp(
+      registerRepository: registerRepository,
+      loginRepository: loginRepository,
+    ),
+  );
 }
 
 class MoviesApp extends StatelessWidget {
-  final RegisterRepository repository;
+  final RegisterRepository registerRepository;
+  final LoginRepository loginRepository;
 
-  const MoviesApp({super.key, required this.repository});
+  const MoviesApp({
+    super.key,
+    required this.registerRepository,
+    required this.loginRepository,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => RegisterViewModel(repository),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<RegisterViewModel>(create: (_) => RegisterViewModel(registerRepository)),
+        BlocProvider<LoginCubit>(create: (_) => LoginCubit()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {

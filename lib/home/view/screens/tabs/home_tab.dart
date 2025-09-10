@@ -101,7 +101,7 @@ class HomeTabState extends State<HomeTab> {
                         right: 0,
                         child: Center(
                           child: Image.asset(
-                            AssetsManager.availablenow,
+                            AssetsManager.availableNow,
                             width: screenWidth * 0.6,
                             height: screenHeight * 0.12,
                             fit: BoxFit.contain,
@@ -133,7 +133,7 @@ class HomeTabState extends State<HomeTab> {
                         left: screenWidth * 0.088,
                         bottom: screenHeight * 0.01,
                         child: Image.asset(
-                          AssetsManager.watchnow,
+                          AssetsManager.watchNow,
                           width: screenWidth * 0.83,
                           height: screenHeight * 0.15,
                           fit: BoxFit.contain,

@@ -5,6 +5,8 @@ class SearchTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Search', style: TextStyle(color: Colors.white)));
+    return const Center(
+      child: Text('Search', style: TextStyle(color: Colors.white)),
+    );
   }
 }

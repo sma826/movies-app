@@ -34,11 +34,11 @@ class AvatarsList extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: selectedIndex == index
-                    ? AppTheme.transparentYellow.withValues(alpha:  0.5)
+                    ? AppTheme.transparentYellow.withValues(alpha: 0.5)
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: AppTheme.transparentYellow.withValues(alpha:  0.5),
+                  color: AppTheme.transparentYellow.withValues(alpha: 0.5),
                   width: 2,
                 ),
               ),
