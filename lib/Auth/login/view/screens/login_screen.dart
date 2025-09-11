@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,11 +13,7 @@ import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
 import 'package:movies/shared/widgets/custom_text_from_field.dart';
-
-
 import 'package:movies/shared/widgets/custom_dialog.dart';
-import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
-
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -50,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (Navigator.canPop(context)) {
             Navigator.of(context).pop();
           }
+          log(state.message);
           showDialog(
             context: context,
             builder: (context) =>
@@ -251,6 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginWithGoogle() async {
+    log('Dosn\'t work yet');
     showDialog(
       context: context,
       builder: (_) => CustomDialog(isError: true, message: 'Not Working Yet'),
