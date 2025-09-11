@@ -8,6 +8,8 @@ import 'package:movies/Auth/register/data/repositories/register_repository.dart'
 import 'package:movies/Auth/register/view%20model/register_view_model.dart';
 import 'package:movies/Auth/register/view/screens/register_screen.dart';
 import 'package:movies/home/view/screens/home_screen.dart';
+import 'package:movies/onboarding/data/data_source/local/onboarding_local_data_source.dart';
+import 'package:movies/onboarding/data/data_source/local/onboarding_shared_pref_data_source.dart';
 import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
 import 'package:movies/shared/bloc_observer.dart';
 import 'package:movies/shared/constants/apptheme.dart';
@@ -20,10 +22,15 @@ void main() async {
   final apiDataSource = RegisterApiDataSource();
   final registerRepository = RegisterRepository(apiDataSource);
   final loginRepository = LoginRepository();
+  final OnBoardingLocalDataSource onBoardingLocal =
+      OnBoardingSharedPrefDataSource();
+  final bool onBoardingKey = await onBoardingLocal.getOnBoarding();
+
   runApp(
     MoviesApp(
       registerRepository: registerRepository,
       loginRepository: loginRepository,
+      onBoardingKey: onBoardingKey,
     ),
   );
 }
@@ -31,18 +38,22 @@ void main() async {
 class MoviesApp extends StatelessWidget {
   final RegisterRepository registerRepository;
   final LoginRepository loginRepository;
+  final bool onBoardingKey;
 
   const MoviesApp({
     super.key,
     required this.registerRepository,
     required this.loginRepository,
+    required this.onBoardingKey,
   });
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<RegisterViewModel>(create: (_) => RegisterViewModel(registerRepository)),
+        BlocProvider<RegisterViewModel>(
+          create: (_) => RegisterViewModel(registerRepository),
+        ),
         BlocProvider<LoginCubit>(create: (_) => LoginCubit()),
       ],
       child: MaterialApp(
@@ -55,7 +66,7 @@ class MoviesApp extends StatelessWidget {
           ForgotPasswordScreen.routeName: (_) => ForgotPasswordScreen(),
           HomeScreen.routeName: (_) => HomeScreen(),
         },
-        initialRoute: OnboardingScreens.routeName,
+        initialRoute: onBoardingKey ? LoginScreen.routeName : OnboardingScreens.routeName,
         // theme: ,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.dark,

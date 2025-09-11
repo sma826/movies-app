@@ -9,4 +9,5 @@ class APIConstants {
 
 class CachedConstants {
   static const String tokenKey = 'token';
+  static const String onBoardingKey = 'onBoardingKey';
 }

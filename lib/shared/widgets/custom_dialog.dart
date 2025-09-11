@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:movies/shared/constants/apptheme.dart';
-import 'package:movies/shared/constants/assets_manager.dart';
 
 class CustomDialog extends StatelessWidget {
   final bool isLoading;
@@ -33,8 +31,6 @@ class CustomDialog extends StatelessWidget {
             Center(
               child: Column(
                 children: [
-                  Lottie.asset(AssetsManager.failed),
-                  const SizedBox(height: 10),
                   Text(
                     message,
                     style: textTheme.titleLarge!.copyWith(

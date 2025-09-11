@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies/onboarding/data/data_source/local/onboarding_local_data_source.dart';
+import 'package:movies/onboarding/data/data_source/local/onboarding_shared_pref_data_source.dart';
 import 'package:movies/onboarding/data/models/onboarding_model.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/font_manager.dart';
@@ -10,8 +12,10 @@ class OnboardingItem extends StatelessWidget {
   final VoidCallback ontap;
   final OnboardingModel data;
   final PageController controller;
+  final OnBoardingLocalDataSource prefs =
+      OnBoardingSharedPrefDataSource();
 
-  const OnboardingItem({
+  OnboardingItem({
     super.key,
     required this.data,
     required this.ontap,
@@ -76,8 +80,10 @@ class OnboardingItem extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (currentIndex == totalPages - 1) {
+                        await prefs.saveOnBoarding(true);
+                        if (!context.mounted) return;
                         Navigator.of(
                           context,
                         ).pushReplacementNamed(LoginScreen.routeName);

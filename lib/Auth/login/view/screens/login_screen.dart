@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -46,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (Navigator.canPop(context)) {
             Navigator.of(context).pop();
           }
+          log(state.message);
           showDialog(
             context: context,
             builder: (context) =>
@@ -247,6 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginWithGoogle() async {
+    log('Dosn\'t work yet');
     showDialog(
       context: context,
       builder: (_) => CustomDialog(isError: true, message: 'Not Working Yet'),

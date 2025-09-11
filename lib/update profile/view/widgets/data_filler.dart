@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import '../../../shared/constants/apptheme.dart';
 
 class DataFiller extends StatefulWidget {
-  final String defaultText;
+//  final String defaultText;
   final String iconName;
   final IconData icon;
-
+  final TextEditingController controller;
   const DataFiller({
     super.key,
     required this.iconName,
     required this.icon,
-    required this.defaultText,
+   // required this.defaultText,
+    required this.controller,
   });
 
   @override
@@ -19,24 +20,13 @@ class DataFiller extends StatefulWidget {
 }
 
 class _DataFillerState extends State<DataFiller> {
-  late final TextEditingController controller;
-
   @override
-  void initState() {
-    super.initState();
-    controller = TextEditingController(text: widget.defaultText);
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
+      controller: widget.controller,
       cursorColor: AppTheme.white,
       style: TextStyle(
         fontSize: 20,
