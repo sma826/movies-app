@@ -12,8 +12,7 @@ class OnboardingItem extends StatelessWidget {
   final VoidCallback ontap;
   final OnboardingModel data;
   final PageController controller;
-  final OnBoardingLocalDataSource prefs =
-      OnBoardingSharedPrefDataSource();
+  final OnBoardingLocalDataSource prefs = OnBoardingSharedPrefDataSource();
 
   OnboardingItem({
     super.key,

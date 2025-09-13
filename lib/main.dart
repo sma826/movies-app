@@ -66,7 +66,9 @@ class MoviesApp extends StatelessWidget {
           ForgotPasswordScreen.routeName: (_) => ForgotPasswordScreen(),
           HomeScreen.routeName: (_) => HomeScreen(),
         },
-        initialRoute: onBoardingKey ? LoginScreen.routeName : OnboardingScreens.routeName,
+        initialRoute: onBoardingKey
+            ? LoginScreen.routeName
+            : OnboardingScreens.routeName,
         // theme: ,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.dark,

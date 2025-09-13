@@ -5,6 +5,9 @@ class APIConstants {
 
   static const String baseUrl = 'https://yts.mx/api';
   static const String listMovies = '/v2/list_movies.json';
+
+  static const String movieDetailsEndPoint = '/v2/movie_details.json';
+  static const String movieSimilarEndPoint = '/v2/movie_suggestions.json';
 }
 
 class CachedConstants {

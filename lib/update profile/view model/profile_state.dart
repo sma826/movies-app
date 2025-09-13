@@ -17,4 +17,5 @@ class ProfileError extends ProfileState {
 
   ProfileError(this.message);
 }
+
 class ProfileSuccessDeleted extends ProfileState {}

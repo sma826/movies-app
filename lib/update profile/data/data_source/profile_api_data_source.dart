@@ -29,11 +29,9 @@ class ProfileApiDataSource {
   }
 
   Future<void> deleteProfile(String token) async {
-  await dio.delete(
-    'https://route-movie-apis.vercel.app/profile',
-    options: Options(headers: {
-      'Authorization': 'Bearer $token',
-    }),
-  );
-}
+    await dio.delete(
+      'https://route-movie-apis.vercel.app/profile',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+  }
 }
