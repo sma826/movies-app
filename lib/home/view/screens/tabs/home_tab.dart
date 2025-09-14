@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:movies/features/movies/presentation/bloc/movies_bloc.dart';
 import 'package:movies/features/movies/presentation/bloc/movies_event.dart';
 import 'package:movies/features/movies/presentation/bloc/movies_state.dart';
+import 'package:movies/movie_details/view/screens/movie_details_screen.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/features/movies/presentation/widgets/featured_movies_carousel.dart';
@@ -150,9 +151,13 @@ class HomeTabState extends State<HomeTab> {
                         allGenres.addAll(movie.genres);
                       }
                       genresList = allGenres.toList();
-                      final currentCategory = genresList.isNotEmpty
-                          ? genresList[currentGenreIndex]
-                          : "No Category";
+                      String currentCategory = "No Category";
+                      if (genresList.isNotEmpty) {
+                        if (currentGenreIndex >= genresList.length) {
+                          currentGenreIndex = 0;
+                        }
+                        currentCategory = genresList[currentGenreIndex];
+                      }
                       return FutureBuilder(
                         future: MoviesRepository(
                           Dio(),
@@ -170,7 +175,7 @@ class HomeTabState extends State<HomeTab> {
                             return Center(
                               child: Text(
                                 'Error: ${snapshot.error}',
-                                style: const TextStyle(color: Colors.red),
+                                style: const TextStyle(color: AppTheme.red),
                               ),
                             );
                           }
@@ -236,73 +241,88 @@ class HomeTabState extends State<HomeTab> {
                                   itemCount: movies.length,
                                   itemBuilder: (context, index) {
                                     final movie = movies[index];
-                                    return Container(
-                                      width: screenWidth * 0.35,
-                                      height: screenHeight * 0.28,
-                                      margin: EdgeInsets.symmetric(
-                                        horizontal: screenWidth * 0.02,
-                                      ),
-                                      child: Stack(
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                              12,
-                                            ),
-                                            child: Image.network(
-                                              movie.largeCoverImage,
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 8,
-                                            left: 8,
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: screenWidth * 0.02,
-                                                vertical: screenHeight * 0.005,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: Colors.black.withOpacity(
-                                                  0.6,
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MovieDetailsScreen(
+                                                  movieId: movie.id,
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: AppTheme.yellow,
-                                                    size: screenWidth * 0.035,
-                                                  ),
-                                                  SizedBox(
-                                                    width: screenWidth * 0.01,
-                                                  ),
-                                                  Flexible(
-                                                    child: Text(
-                                                      movie.rating.toString(),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: AppTheme
-                                                          .darkTheme
-                                                          .textTheme
-                                                          .titleMedium!
-                                                          .copyWith(
-                                                            color: Colors.white,
-                                                            fontSize:
-                                                                screenWidth *
-                                                                0.035,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                ],
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: screenWidth * 0.35,
+                                        height: screenHeight * 0.28,
+                                        margin: EdgeInsets.symmetric(
+                                          horizontal: screenWidth * 0.02,
+                                        ),
+                                        child: Stack(
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              child: Image.network(
+                                                movie.largeCoverImage,
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            Positioned(
+                                              top: 8,
+                                              left: 8,
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      screenWidth * 0.02,
+                                                  vertical:
+                                                      screenHeight * 0.005,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: AppTheme.black
+                                                      .withOpacity(0.6),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.star,
+                                                      color: AppTheme.yellow,
+                                                      size: screenWidth * 0.035,
+                                                    ),
+                                                    SizedBox(
+                                                      width: screenWidth * 0.01,
+                                                    ),
+                                                    Flexible(
+                                                      child: Text(
+                                                        movie.rating.toString(),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: AppTheme
+                                                            .darkTheme
+                                                            .textTheme
+                                                            .titleMedium!
+                                                            .copyWith(
+                                                              color: AppTheme
+                                                                  .white,
+                                                              fontSize:
+                                                                  screenWidth *
+                                                                  0.035,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   },

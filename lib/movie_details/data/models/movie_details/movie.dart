@@ -1,7 +1,7 @@
 import 'cast.dart';
 import 'torrent.dart';
 
-class Movie {
+class movieDetailsResponse {
   int? id;
   String? url;
   String? imdbCode;
@@ -35,7 +35,7 @@ class Movie {
   String? dateUploaded;
   int? dateUploadedUnix;
 
-  Movie({
+  movieDetailsResponse({
     this.id,
     this.url,
     this.imdbCode,
@@ -70,44 +70,47 @@ class Movie {
     this.dateUploadedUnix,
   });
 
-  factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-    id: json['id'] as int?,
-    url: json['url'] as String?,
-    imdbCode: json['imdb_code'] as String?,
-    title: json['title'] as String?,
-    titleEnglish: json['title_english'] as String?,
-    titleLong: json['title_long'] as String?,
-    slug: json['slug'] as String?,
-    year: json['year'] as int?,
-    rating: (json['rating'] as num?)?.toDouble(),
-    runtime: json['runtime'] as int?,
-    genres: json['genres'] as List<String>?,
-    likeCount: json['like_count'] as int?,
-    descriptionIntro: json['description_intro'] as String?,
-    descriptionFull: json['description_full'] as String?,
-    ytTrailerCode: json['yt_trailer_code'] as String?,
-    language: json['language'] as String?,
-    mpaRating: json['mpa_rating'] as String?,
-    backgroundImage: json['background_image'] as String?,
-    backgroundImageOriginal: json['background_image_original'] as String?,
-    smallCoverImage: json['small_cover_image'] as String?,
-    mediumCoverImage: json['medium_cover_image'] as String?,
-    largeCoverImage: json['large_cover_image'] as String?,
-    mediumScreenshotImage1: json['medium_screenshot_image1'] as String?,
-    mediumScreenshotImage2: json['medium_screenshot_image2'] as String?,
-    mediumScreenshotImage3: json['medium_screenshot_image3'] as String?,
-    largeScreenshotImage1: json['large_screenshot_image1'] as String?,
-    largeScreenshotImage2: json['large_screenshot_image2'] as String?,
-    largeScreenshotImage3: json['large_screenshot_image3'] as String?,
-    cast: (json['cast'] as List<dynamic>?)
-        ?.map((e) => Cast.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    torrents: (json['torrents'] as List<dynamic>?)
-        ?.map((e) => Torrent.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    dateUploaded: json['date_uploaded'] as String?,
-    dateUploadedUnix: json['date_uploaded_unix'] as int?,
-  );
+  factory movieDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      movieDetailsResponse(
+        id: json['id'] as int?,
+        url: json['url'] as String?,
+        imdbCode: json['imdb_code'] as String?,
+        title: json['title'] as String?,
+        titleEnglish: json['title_english'] as String?,
+        titleLong: json['title_long'] as String?,
+        slug: json['slug'] as String?,
+        year: json['year'] as int?,
+        rating: (json['rating'] as num?)?.toDouble(),
+        runtime: json['runtime'] as int?,
+        genres: (json['genres'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList(),
+        likeCount: json['like_count'] as int?,
+        descriptionIntro: json['description_intro'] as String?,
+        descriptionFull: json['description_full'] as String?,
+        ytTrailerCode: json['yt_trailer_code'] as String?,
+        language: json['language'] as String?,
+        mpaRating: json['mpa_rating'] as String?,
+        backgroundImage: json['background_image'] as String?,
+        backgroundImageOriginal: json['background_image_original'] as String?,
+        smallCoverImage: json['small_cover_image'] as String?,
+        mediumCoverImage: json['medium_cover_image'] as String?,
+        largeCoverImage: json['large_cover_image'] as String?,
+        mediumScreenshotImage1: json['medium_screenshot_image1'] as String?,
+        mediumScreenshotImage2: json['medium_screenshot_image2'] as String?,
+        mediumScreenshotImage3: json['medium_screenshot_image3'] as String?,
+        largeScreenshotImage1: json['large_screenshot_image1'] as String?,
+        largeScreenshotImage2: json['large_screenshot_image2'] as String?,
+        largeScreenshotImage3: json['large_screenshot_image3'] as String?,
+        cast: (json['cast'] as List<dynamic>?)
+            ?.map((e) => Cast.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        torrents: (json['torrents'] as List<dynamic>?)
+            ?.map((e) => Torrent.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        dateUploaded: json['date_uploaded'] as String?,
+        dateUploadedUnix: json['date_uploaded_unix'] as int?,
+      );
 
   Map<String, dynamic> toJson() => {
     'id': id,
