@@ -1,7 +1,7 @@
 import 'cast.dart';
 import 'torrent.dart';
 
-class Movie {
+class MovieDetails {
   int? id;
   String? url;
   String? imdbCode;
@@ -35,7 +35,7 @@ class Movie {
   String? dateUploaded;
   int? dateUploadedUnix;
 
-  Movie({
+  MovieDetails({
     this.id,
     this.url,
     this.imdbCode,
@@ -70,7 +70,7 @@ class Movie {
     this.dateUploadedUnix,
   });
 
-  factory Movie.fromJson(Map<String, dynamic> json) => Movie(
+  factory MovieDetails.fromJson(Map<String, dynamic> json) => MovieDetails(
     id: json['id'] as int?,
     url: json['url'] as String?,
     imdbCode: json['imdb_code'] as String?,
@@ -81,7 +81,9 @@ class Movie {
     year: json['year'] as int?,
     rating: (json['rating'] as num?)?.toDouble(),
     runtime: json['runtime'] as int?,
-    genres: json['genres'] as List<String>?,
+    genres: (json['genres'] as List<dynamic>?)
+        ?.map((e) => e as String)
+        .toList(),
     likeCount: json['like_count'] as int?,
     descriptionIntro: json['description_intro'] as String?,
     descriptionFull: json['description_full'] as String?,
