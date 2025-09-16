@@ -11,10 +11,15 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   Future<void> getMovieDetails(int movieId) async {
     emit(MovieDetailsLoading());
     try {
-      final movieItem =  await _remoteDataSource.getMovieDetails(movieId);
+      final movieItem = await _remoteDataSource.getMovieDetails(movieId);
       emit(MovieDetailsSuccess(movieItem: movieItem));
     } catch (e) {
       emit(MovieDetailsError(messsage: e.toString()));
     }
+  }
+
+  void toggleBookMark(bool bookMark) {
+    bookMark = !bookMark;
+    emit(MovieDetailsBookMark(isMarked: bookMark));
   }
 }

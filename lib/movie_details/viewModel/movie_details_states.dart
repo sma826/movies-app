@@ -16,3 +16,9 @@ class MovieDetailsError extends MovieDetailsState {
   String? messsage;
   MovieDetailsError({this.messsage});
 }
+
+class MovieDetailsBookMark extends MovieDetailsState {
+  final bool isMarked;
+
+  MovieDetailsBookMark({required this.isMarked});
+}

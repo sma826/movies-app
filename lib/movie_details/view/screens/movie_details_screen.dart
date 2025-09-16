@@ -23,7 +23,6 @@ class MovieDetailsScreen extends StatelessWidget {
     log('movieID: $movieId');
 
     return Scaffold(
-      appBar: AppBar(),
       body: BlocProvider(
         create: (context) => MovieDetailsCubit()..getMovieDetails(movieId),
         child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
