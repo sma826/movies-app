@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movies/movie_details/data/models/movie_details/movie_details_item.dart';
 
 class MovieSuggestions extends StatelessWidget {
-  const MovieSuggestions({super.key});
+  final MovieDetailsItem movie;
+  const MovieSuggestions({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {

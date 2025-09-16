@@ -243,14 +243,9 @@ class HomeTabState extends State<HomeTab> {
                                     final movie = movies[index];
                                     return GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MovieDetailsScreen(
-                                                  movieId: movie.id,
-                                                ),
-                                          ),
+                                        Navigator.of(context).pushNamed(
+                                          MovieDetailsScreen.routeName,
+                                          arguments: movie.id,
                                         );
                                       },
                                       child: Container(

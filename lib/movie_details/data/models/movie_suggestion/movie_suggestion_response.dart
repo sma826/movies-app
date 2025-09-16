@@ -1,16 +1,16 @@
 import 'data.dart';
 import 'meta.dart';
 
-class MovieSuggestion {
+class MovieSuggestionResponse {
   String? status;
   String? statusMessage;
   Data? data;
   Meta? meta;
 
-  MovieSuggestion({this.status, this.statusMessage, this.data, this.meta});
+  MovieSuggestionResponse({this.status, this.statusMessage, this.data, this.meta});
 
-  factory MovieSuggestion.fromJson(Map<String, dynamic> json) {
-    return MovieSuggestion(
+  factory MovieSuggestionResponse.fromJson(Map<String, dynamic> json) {
+    return MovieSuggestionResponse(
       status: json['status'] as String?,
       statusMessage: json['status_message'] as String?,
       data: json['data'] == null

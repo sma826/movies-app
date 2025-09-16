@@ -1,67 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:movies/movie_details/data/models/movie_details/movie.dart';
+import 'package:movies/movie_details/data/data_source/remote/movie_details_api_data_source.dart';
+import 'package:movies/movie_details/data/models/movie_details/movie_details_item.dart';
 
 import '../../../../shared/constants/apptheme.dart';
 import '../../../../shared/constants/font_manager.dart';
-import '../../../data/data_source/local/movie_details_shared_pref_data_source.dart';
-import '../../../data/data_source/remote/movie_details_remote_data_source.dart';
 
-class MovieSummary extends StatefulWidget {
-  final int movieId;
+class MovieSummary extends StatelessWidget {
+  final MovieDetailsItem movie;
 
-  const MovieSummary({super.key, required this.movieId});
+  MovieSummary({super.key, required this.movie});
 
-  @override
-  State<MovieSummary> createState() => _MovieSummaryState();
-}
-
-class _MovieSummaryState extends State<MovieSummary> {
-  MovieDetails? movie;
-  String? errorMessage;
-  bool isLoading = true;
-
-  final remoteDataSource = MovieDetailsRemoteDataSource();
-  final localDataSource = MovieDetailsSharedPrefDataSource();
-
-  @override
-  void initState() {
-    super.initState();
-    loadMovieDetails();
-  }
-
-  Future<void> loadMovieDetails() async {
-    try {
-      final localMovie = await localDataSource.getMovieDetails(widget.movieId);
-      setState(() {
-        movie = localMovie;
-        isLoading = false;
-      });
-    } catch (_) {
-      try {
-        final remoteMovie = await remoteDataSource.getMovieDetails(
-          widget.movieId,
-        );
-        await localDataSource.cacheMovie(remoteMovie);
-        setState(() {
-          movie = remoteMovie;
-          isLoading = false;
-        });
-      } catch (e) {
-        setState(() {
-          errorMessage = e.toString();
-          isLoading = false;
-        });
-      }
-    }
-  }
+  final remoteDataSource = MovieDetailsAPIDataSource();
 
   @override
   Widget build(BuildContext context) {
     final displaySummary =
-        (movie!.descriptionFull == null ||
-            movie!.descriptionFull!.trim().isEmpty)
+        (movie.descriptionFull == null ||
+            movie.descriptionFull!.trim().isEmpty)
         ? "No summary available"
-        : movie!.descriptionFull;
+        : movie.descriptionFull;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),

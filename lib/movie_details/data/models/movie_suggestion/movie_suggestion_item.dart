@@ -1,7 +1,6 @@
-import 'cast.dart';
 import 'torrent.dart';
 
-class MovieDetails {
+class MovieSuggestionItem {
   int? id;
   String? url;
   String? imdbCode;
@@ -13,9 +12,9 @@ class MovieDetails {
   double? rating;
   int? runtime;
   List<String>? genres;
-  int? likeCount;
-  String? descriptionIntro;
+  String? summary;
   String? descriptionFull;
+  String? synopsis;
   String? ytTrailerCode;
   String? language;
   String? mpaRating;
@@ -23,19 +22,12 @@ class MovieDetails {
   String? backgroundImageOriginal;
   String? smallCoverImage;
   String? mediumCoverImage;
-  String? largeCoverImage;
-  String? mediumScreenshotImage1;
-  String? mediumScreenshotImage2;
-  String? mediumScreenshotImage3;
-  String? largeScreenshotImage1;
-  String? largeScreenshotImage2;
-  String? largeScreenshotImage3;
-  List<Cast>? cast;
+  String? state;
   List<Torrent>? torrents;
   String? dateUploaded;
   int? dateUploadedUnix;
 
-  MovieDetails({
+  MovieSuggestionItem({
     this.id,
     this.url,
     this.imdbCode,
@@ -47,9 +39,9 @@ class MovieDetails {
     this.rating,
     this.runtime,
     this.genres,
-    this.likeCount,
-    this.descriptionIntro,
+    this.summary,
     this.descriptionFull,
+    this.synopsis,
     this.ytTrailerCode,
     this.language,
     this.mpaRating,
@@ -57,20 +49,13 @@ class MovieDetails {
     this.backgroundImageOriginal,
     this.smallCoverImage,
     this.mediumCoverImage,
-    this.largeCoverImage,
-    this.mediumScreenshotImage1,
-    this.mediumScreenshotImage2,
-    this.mediumScreenshotImage3,
-    this.largeScreenshotImage1,
-    this.largeScreenshotImage2,
-    this.largeScreenshotImage3,
-    this.cast,
+    this.state,
     this.torrents,
     this.dateUploaded,
     this.dateUploadedUnix,
   });
 
-  factory MovieDetails.fromJson(Map<String, dynamic> json) => MovieDetails(
+  factory MovieSuggestionItem.fromJson(Map<String, dynamic> json) => MovieSuggestionItem(
     id: json['id'] as int?,
     url: json['url'] as String?,
     imdbCode: json['imdb_code'] as String?,
@@ -81,12 +66,10 @@ class MovieDetails {
     year: json['year'] as int?,
     rating: (json['rating'] as num?)?.toDouble(),
     runtime: json['runtime'] as int?,
-    genres: (json['genres'] as List<dynamic>?)
-        ?.map((e) => e as String)
-        .toList(),
-    likeCount: json['like_count'] as int?,
-    descriptionIntro: json['description_intro'] as String?,
+    genres: json['genres'] as List<String>?,
+    summary: json['summary'] as String?,
     descriptionFull: json['description_full'] as String?,
+    synopsis: json['synopsis'] as String?,
     ytTrailerCode: json['yt_trailer_code'] as String?,
     language: json['language'] as String?,
     mpaRating: json['mpa_rating'] as String?,
@@ -94,16 +77,7 @@ class MovieDetails {
     backgroundImageOriginal: json['background_image_original'] as String?,
     smallCoverImage: json['small_cover_image'] as String?,
     mediumCoverImage: json['medium_cover_image'] as String?,
-    largeCoverImage: json['large_cover_image'] as String?,
-    mediumScreenshotImage1: json['medium_screenshot_image1'] as String?,
-    mediumScreenshotImage2: json['medium_screenshot_image2'] as String?,
-    mediumScreenshotImage3: json['medium_screenshot_image3'] as String?,
-    largeScreenshotImage1: json['large_screenshot_image1'] as String?,
-    largeScreenshotImage2: json['large_screenshot_image2'] as String?,
-    largeScreenshotImage3: json['large_screenshot_image3'] as String?,
-    cast: (json['cast'] as List<dynamic>?)
-        ?.map((e) => Cast.fromJson(e as Map<String, dynamic>))
-        .toList(),
+    state: json['state'] as String?,
     torrents: (json['torrents'] as List<dynamic>?)
         ?.map((e) => Torrent.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -123,9 +97,9 @@ class MovieDetails {
     'rating': rating,
     'runtime': runtime,
     'genres': genres,
-    'like_count': likeCount,
-    'description_intro': descriptionIntro,
+    'summary': summary,
     'description_full': descriptionFull,
+    'synopsis': synopsis,
     'yt_trailer_code': ytTrailerCode,
     'language': language,
     'mpa_rating': mpaRating,
@@ -133,14 +107,7 @@ class MovieDetails {
     'background_image_original': backgroundImageOriginal,
     'small_cover_image': smallCoverImage,
     'medium_cover_image': mediumCoverImage,
-    'large_cover_image': largeCoverImage,
-    'medium_screenshot_image1': mediumScreenshotImage1,
-    'medium_screenshot_image2': mediumScreenshotImage2,
-    'medium_screenshot_image3': mediumScreenshotImage3,
-    'large_screenshot_image1': largeScreenshotImage1,
-    'large_screenshot_image2': largeScreenshotImage2,
-    'large_screenshot_image3': largeScreenshotImage3,
-    'cast': cast?.map((e) => e.toJson()).toList(),
+    'state': state,
     'torrents': torrents?.map((e) => e.toJson()).toList(),
     'date_uploaded': dateUploaded,
     'date_uploaded_unix': dateUploadedUnix,

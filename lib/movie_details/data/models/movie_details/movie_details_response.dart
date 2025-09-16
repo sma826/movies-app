@@ -1,15 +1,15 @@
 import 'data.dart';
 import 'meta.dart';
 
-class MovieDetails {
+class MovieDetailsResponse {
   String? status;
   String? statusMessage;
   Data? data;
   Meta? meta;
 
-  MovieDetails({this.status, this.statusMessage, this.data, this.meta});
+  MovieDetailsResponse({this.status, this.statusMessage, this.data, this.meta});
 
-  factory MovieDetails.fromJson(Map<String, dynamic> json) => MovieDetails(
+  factory MovieDetailsResponse.fromJson(Map<String, dynamic> json) => MovieDetailsResponse(
     status: json['status'] as String?,
     statusMessage: json['status_message'] as String?,
     data: json['data'] == null
@@ -19,11 +19,4 @@ class MovieDetails {
         ? null
         : Meta.fromJson(json['@meta'] as Map<String, dynamic>),
   );
-
-  Map<String, dynamic> toJson() => {
-    'status': status,
-    'status_message': statusMessage,
-    'data': data?.toJson(),
-    '@meta': meta?.toJson(),
-  };
 }

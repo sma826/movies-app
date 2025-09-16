@@ -40,12 +40,7 @@ class FeaturedMoviesCarousel extends StatelessWidget {
           final movie = state.moviesData.data.movies[index];
           return GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      MovieDetailsScreen(movieId: movie.id ?? 0),
-                ),
-              );
+              Navigator.of(context).pushNamed(MovieDetailsScreen.routeName, arguments: movie.id);
             },
             child: Container(
               width: carouselItemWidth,
