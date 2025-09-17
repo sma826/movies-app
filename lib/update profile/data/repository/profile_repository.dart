@@ -13,7 +13,8 @@ class ProfileRepository {
   Future<void> updateProfile(String token, UserProfile profile) {
     return dataSource.patchProfile(token, profile.toJson());
   }
+
   Future<void> deleteProfile(String token) {
-  return dataSource.deleteProfile(token);
-}
+    return dataSource.deleteProfile(token);
+  }
 }

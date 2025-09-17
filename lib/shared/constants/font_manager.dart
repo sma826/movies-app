@@ -12,6 +12,7 @@ class FontWeightManager {
   static const FontWeight fw400 = FontWeight.w400;
   static const FontWeight fw500 = FontWeight.w500;
   static const FontWeight fw600 = FontWeight.w600;
+  static const FontWeight fw700 = FontWeight.w700;
 }
 
 class FontStyleManager {

@@ -8,6 +8,7 @@ import 'package:movies/Auth/register/data/repositories/register_repository.dart'
 import 'package:movies/Auth/register/view%20model/register_view_model.dart';
 import 'package:movies/Auth/register/view/screens/register_screen.dart';
 import 'package:movies/home/view/screens/home_screen.dart';
+import 'package:movies/movie_details/view/screens/movie_details_screen.dart';
 import 'package:movies/onboarding/data/data_source/local/onboarding_local_data_source.dart';
 import 'package:movies/onboarding/data/data_source/local/onboarding_shared_pref_data_source.dart';
 import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
@@ -65,8 +66,11 @@ class MoviesApp extends StatelessWidget {
           RegisterScreen.routeName: (_) => RegisterScreen(),
           ForgotPasswordScreen.routeName: (_) => ForgotPasswordScreen(),
           HomeScreen.routeName: (_) => HomeScreen(),
+          MovieDetailsScreen.routeName: (_) => MovieDetailsScreen(),
         },
-        initialRoute: onBoardingKey ? LoginScreen.routeName : OnboardingScreens.routeName,
+        initialRoute: onBoardingKey
+            ? LoginScreen.routeName
+            : OnboardingScreens.routeName,
         // theme: ,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.dark,

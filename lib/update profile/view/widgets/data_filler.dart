@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/constants/apptheme.dart';
 
 class DataFiller extends StatefulWidget {
-//  final String defaultText;
+  //  final String defaultText;
   final String iconName;
   final IconData icon;
   final TextEditingController controller;
@@ -11,7 +11,7 @@ class DataFiller extends StatefulWidget {
     super.key,
     required this.iconName,
     required this.icon,
-   // required this.defaultText,
+    // required this.defaultText,
     required this.controller,
   });
 
@@ -21,8 +21,6 @@ class DataFiller extends StatefulWidget {
 
 class _DataFillerState extends State<DataFiller> {
   @override
- 
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(

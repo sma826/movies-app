@@ -4,7 +4,12 @@ class UserProfile {
   final String phone;
   final int avaterId;
 
-  UserProfile({required this.id, required this.name, required this.phone,required this.avaterId});
+  UserProfile({
+    required this.id,
+    required this.name,
+    required this.phone,
+    required this.avaterId,
+  });
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     final data = json['data'];

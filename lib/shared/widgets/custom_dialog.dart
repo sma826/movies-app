@@ -25,7 +25,9 @@ class CustomDialog extends StatelessWidget {
           SizedBox(height: size.height * 0.1),
           if (isLoading)
             Center(
-              child: const CircularProgressIndicator(color: AppTheme.darkCharcoal),
+              child: const CircularProgressIndicator(
+                color: AppTheme.darkCharcoal,
+              ),
             )
           else if (isError)
             Center(
