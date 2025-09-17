@@ -26,7 +26,7 @@ class MovieGenres extends StatelessWidget {
               crossAxisCount: 3,
               crossAxisSpacing: 16,
               mainAxisSpacing: 11,
-              childAspectRatio: 122/36,
+              childAspectRatio: 122 / 36,
             ),
             shrinkWrap: true,
             itemCount: genres.length,

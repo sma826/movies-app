@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:movies/movie_details/data/data_source/remote/movie_details_remote_data_source.dart';
 import 'package:movies/movie_details/data/models/movie_details/movie_details_item.dart';
+import 'package:movies/movie_details/data/models/movie_suggestion/movie_suggestion_item.dart';
 import 'package:movies/shared/constants/api_constants.dart';
 import 'package:http/http.dart' as http;
 

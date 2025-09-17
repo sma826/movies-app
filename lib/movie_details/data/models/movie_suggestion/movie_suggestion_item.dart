@@ -55,35 +55,38 @@ class MovieSuggestionItem {
     this.dateUploadedUnix,
   });
 
-  factory MovieSuggestionItem.fromJson(Map<String, dynamic> json) => MovieSuggestionItem(
-    id: json['id'] as int?,
-    url: json['url'] as String?,
-    imdbCode: json['imdb_code'] as String?,
-    title: json['title'] as String?,
-    titleEnglish: json['title_english'] as String?,
-    titleLong: json['title_long'] as String?,
-    slug: json['slug'] as String?,
-    year: json['year'] as int?,
-    rating: (json['rating'] as num?)?.toDouble(),
-    runtime: json['runtime'] as int?,
-    genres: json['genres'] as List<String>?,
-    summary: json['summary'] as String?,
-    descriptionFull: json['description_full'] as String?,
-    synopsis: json['synopsis'] as String?,
-    ytTrailerCode: json['yt_trailer_code'] as String?,
-    language: json['language'] as String?,
-    mpaRating: json['mpa_rating'] as String?,
-    backgroundImage: json['background_image'] as String?,
-    backgroundImageOriginal: json['background_image_original'] as String?,
-    smallCoverImage: json['small_cover_image'] as String?,
-    mediumCoverImage: json['medium_cover_image'] as String?,
-    state: json['state'] as String?,
-    torrents: (json['torrents'] as List<dynamic>?)
-        ?.map((e) => Torrent.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    dateUploaded: json['date_uploaded'] as String?,
-    dateUploadedUnix: json['date_uploaded_unix'] as int?,
-  );
+  factory MovieSuggestionItem.fromJson(Map<String, dynamic> json) =>
+      MovieSuggestionItem(
+        id: json['id'] as int?,
+        url: json['url'] as String?,
+        imdbCode: json['imdb_code'] as String?,
+        title: json['title'] ?? '',
+        titleEnglish: json['title_english'] as String?,
+        titleLong: json['title_long'] as String?,
+        slug: json['slug'] as String?,
+        year: json['year'] as int?,
+        rating: (json['rating'] != null)
+            ? (json['rating'] as num).toDouble()
+            : null,
+        runtime: json['runtime'] as int?,
+        genres: json['genres'] as List<String>?,
+        summary: json['summary'] as String?,
+        descriptionFull: json['description_full'] as String?,
+        synopsis: json['synopsis'] as String?,
+        ytTrailerCode: json['yt_trailer_code'] as String?,
+        language: json['language'] as String?,
+        mpaRating: json['mpa_rating'] as String?,
+        backgroundImage: json['background_image'] as String?,
+        backgroundImageOriginal: json['background_image_original'] as String?,
+        smallCoverImage: json['small_cover_image'] as String?,
+        mediumCoverImage: json['medium_cover_image'] as String?,
+        state: json['state'] as String?,
+        torrents: (json['torrents'] as List<dynamic>?)
+            ?.map((e) => Torrent.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        dateUploaded: json['date_uploaded'] as String?,
+        dateUploadedUnix: json['date_uploaded_unix'] as int?,
+      );
 
   Map<String, dynamic> toJson() => {
     'id': id,
