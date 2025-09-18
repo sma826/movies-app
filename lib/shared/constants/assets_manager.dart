@@ -35,9 +35,15 @@ class AssetsManager {
   static const String searchSelectedIcon = 'assets/icons/search_selected.svg';
   static const String browseSelectedIcon = 'assets/icons/browse_selected.svg';
   static const String profileSelectedIcon = 'assets/icons/profile_selected.svg';
+  static const String exitIcon = 'assets/icons/exit.svg';
+  static const String historyIcon = 'assets/icons/history_icon.svg';
+  static const String watchListIcon = 'assets/icons/watch_list_icon.svg';
+  static const String popcornIcon = 'assets/icons/popcorn.svg';
 
   // TODO : HOME TAP
   static const String availableNow = 'assets/images/availablenow.png';
   static const String watchNow = 'assets/images/watchnow.png';
   static const String placeHolder = 'assets/images/placeholder.png';
+
+  static const String popcorn = 'assets/images/popcorn.png';
 }

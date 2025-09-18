@@ -10,8 +10,8 @@ class LoginSharedPrefDataSource implements LoginLocalDataSource {
   }
 
   @override
-  Future<String> getToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(CachedConstants.tokenKey)!;
+  Future<String?> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(CachedConstants.tokenKey);
   }
 }
