@@ -39,7 +39,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     final dataSource = ProfileApiDataSource(dio);
     final repository = ProfileRepository(dataSource);
 
-    final cubit = ProfileCubit(repository, token);
+    final cubit = ProfileCubit(repository, token!);
     cubit.fetchProfile();
     setState(() {
       profileCubit = cubit;
@@ -60,11 +60,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             value: profileCubit!,
             child: Scaffold(
               appBar: AppBar(
-                leading: Icon(
-                  Icons.arrow_back,
-                  color: AppTheme.yellow,
-                  size: 30,
-                ),
                 title: Text('Pick Avatar'),
               ),
               body: BlocBuilder<ProfileCubit, ProfileState>(
