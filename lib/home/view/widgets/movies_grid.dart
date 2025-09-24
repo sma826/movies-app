@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+
+import '../../../features/movies/data/models/movie_model.dart';
+import '../../../movie_details/view/screens/movie_details_screen.dart';
+
 import 'package:movies/movies/data/models/movie_model.dart';
+
 import '../../../shared/constants/apptheme.dart';
 
 Widget buildMoviesGrid({
@@ -44,53 +49,60 @@ Widget buildMoviesGrid({
 
 Widget _buildMovieCard(BuildContext context, Movie movie) {
   final screenWidth = MediaQuery.of(context).size.width;
-  return Card(
-    color: Colors.transparent,
-    elevation: 0,
-    clipBehavior: Clip.antiAlias,
-    child: Stack(
-      alignment: Alignment.topLeft,
-      children: <Widget>[
-        Positioned.fill(
-          child: Image.network(
-            movie.mediumCoverImage,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => Container(color: Colors.grey),
-          ),
-        ),
-        Positioned(
-          top: 8,
-          left: 8,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(5),
+  return GestureDetector(
+    onTap: () {
+      Navigator.of(
+        context,
+      ).pushNamed(MovieDetailsScreen.routeName, arguments: movie.id);
+    },
+    child: Card(
+      color: Colors.transparent,
+      elevation: 0,
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        alignment: Alignment.topLeft,
+        children: <Widget>[
+          Positioned.fill(
+            child: Image.network(
+              movie.mediumCoverImage,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => Container(color: Colors.grey),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.star,
-                  color: AppTheme.yellow,
-                  size: screenWidth * 0.035,
-                ),
-                SizedBox(width: screenWidth * 0.01),
-                Flexible(
-                  child: Text(
-                    movie.rating.toString(),
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTheme.darkTheme.textTheme.titleMedium!.copyWith(
-                      color: AppTheme.white,
-                      fontSize: screenWidth * 0.035,
+          ),
+          Positioned(
+            top: 8,
+            left: 8,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: AppTheme.yellow,
+                    size: screenWidth * 0.035,
+                  ),
+                  SizedBox(width: screenWidth * 0.01),
+                  Flexible(
+                    child: Text(
+                      movie.rating.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.darkTheme.textTheme.titleMedium!.copyWith(
+                        color: AppTheme.white,
+                        fontSize: screenWidth * 0.035,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
