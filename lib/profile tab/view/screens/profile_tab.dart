@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies/profile%20tab/viewModel/user_profile_states.dart';
+import 'package:movies/shared/constants/api_constants.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
@@ -18,6 +19,7 @@ import 'package:movies/watch_list_&_History/data/data_source/local/history_local
 
 import '../../../Auth/login/view/screens/login_screen.dart';
 import '../../../shared/constants/font_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../viewModel/user_profile_view_model.dart';
 
 class ProfileTab extends StatelessWidget {
@@ -82,235 +84,247 @@ class ProfileTab extends StatelessWidget {
       repository: MovieListRepository(WatchListAPIDataSource()),
     );
     final historyLocalDataSource = HistoryLocalDataSource();
-    historyLocalDataSource.setUserId(userProfile.id);
-    final historyCubit = HistoryCubit(
-      repository: HistoryRepository(historyLocalDataSource),
-    );
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return FutureBuilder<String?>(
+      future: (() async {
+        final prefs = await SharedPreferences.getInstance();
+        return prefs.getString(CachedConstants.tokenKey);
+      })(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator(color: AppTheme.yellow,));
+        }
+        final token = snapshot.data ?? '';
+        historyLocalDataSource.setToken(token);
+        final historyCubit = HistoryCubit(
+          repository: HistoryRepository(historyLocalDataSource),
+        );
+        return Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+              child: Column(
                 children: [
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage(
-                          'assets/images/avatar${userProfile.avaterId}.png',
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundImage: AssetImage(
+                              'assets/images/avatar${userProfile.avaterId}.png',
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            userProfile.name,
+                            style: const TextStyle(
+                              color: AppTheme.white,
+                              fontSize: FontSizes.s20,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Roboto',
+                            ),
+                          ),
+                        ],
+                      ),
+                      BlocBuilder<WatchListCubit, WatchListState>(
+                        bloc: watchListCubit..getAllFavorites(),
+                        builder: (context, state) {
+                          int count = 0;
+                          if (state is WatchListLoaded) {
+                            count = state.favorites.length;
+                          }
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '$count',
+                                style: const TextStyle(
+                                  color: AppTheme.white,
+                                  fontSize: FontSizes.s36,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Roboto',
+                                ),
+                              ),
+                              Text(
+                                'Wish List',
+                                style: const TextStyle(
+                                  color: AppTheme.white,
+                                  fontSize: FontSizes.s24,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Roboto',
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                      BlocBuilder<HistoryCubit, HistoryState>(
+                        bloc: historyCubit..getHistoryMovies(),
+                        builder: (context, state) {
+                          int count = 0;
+                          if (state is HistoryLoaded) {
+                            count = state.movies.length;
+                          }
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '$count',
+                                style: const TextStyle(
+                                  color: AppTheme.white,
+                                  fontSize: FontSizes.s36,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Roboto',
+                                ),
+                              ),
+                              Text(
+                                'History',
+                                style: const TextStyle(
+                                  color: AppTheme.white,
+                                  fontSize: FontSizes.s24,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Roboto',
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 23),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => UpdateProfileScreen(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.yellow,
+                            foregroundColor: AppTheme.black,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          child: const Text(
+                            'Edit Profile',
+                            style: TextStyle(
+                              fontSize: FontSizes.s20,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Roboto',
+                            ),
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      Text(
-                        userProfile.name,
-                        style: const TextStyle(
-                          color: AppTheme.white,
-                          fontSize: FontSizes.s20,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Roboto',
+                      SizedBox(width: 10),
+                      Expanded(
+                        flex: 1,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.red,
+                            foregroundColor: AppTheme.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Exit',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: FontSizes.s20,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              SvgPicture.asset(AssetsManager.exitIcon),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  BlocBuilder<WatchListCubit, WatchListState>(
-                    bloc: watchListCubit..getAllFavorites(),
-                    builder: (context, state) {
-                      int count = 0;
-                      if (state is WatchListLoaded) {
-                        count = state.favorites.length;
-                      }
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '$count',
-                            style: const TextStyle(
-                              color: AppTheme.white,
-                              fontSize: FontSizes.s36,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Roboto',
-                            ),
-                          ),
-                          Text(
-                            'Wish List',
-                            style: const TextStyle(
-                              color: AppTheme.white,
-                              fontSize: FontSizes.s24,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Roboto',
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  BlocBuilder<HistoryCubit, HistoryState>(
-                    bloc: historyCubit..getHistoryMovies(),
-                    builder: (context, state) {
-                      int count = 0;
-                      if (state is HistoryLoaded) {
-                        count = state.movies.length;
-                      }
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '$count',
-                            style: const TextStyle(
-                              color: AppTheme.white,
-                              fontSize: FontSizes.s36,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Roboto',
-                            ),
-                          ),
-                          Text(
-                            'History',
-                            style: const TextStyle(
-                              color: AppTheme.white,
-                              fontSize: FontSizes.s24,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Roboto',
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                  const SizedBox(height: 24),
+                  TabBar(
+                    indicatorColor: AppTheme.yellow,
+                    labelColor: AppTheme.white,
+                    unselectedLabelColor: AppTheme.white,
+                    dividerColor: Colors.transparent,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    labelStyle: TextStyle(
+                      color: AppTheme.white,
+                      fontSize: FontSizes.s20,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Roboto',
+                    ),
+                    unselectedLabelStyle: TextStyle(
+                      color: AppTheme.white,
+                      fontSize: FontSizes.s20,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Roboto',
+                    ),
+                    tabs: [
+                      Tab(
+                        icon: SvgPicture.asset(AssetsManager.watchListIcon),
+                        text: "Watch List",
+                      ),
+                      Tab(
+                        icon: SvgPicture.asset(AssetsManager.historyIcon),
+                        text: "History",
+                      ),
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(height: 23),
-              Row(
+            ),
+            Expanded(
+              child: TabBarView(
                 children: [
-                  Expanded(
-                    flex: 2,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => UpdateProfileScreen(),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.yellow,
-                        foregroundColor: AppTheme.black,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                      child: const Text(
-                        'Edit Profile',
-                        style: TextStyle(
-                          fontSize: FontSizes.s20,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                    ),
+                  WatchListTab(
+                    cubit: watchListCubit,
+                    onMovieTap: (movie) {
+                      Navigator.pushNamed(
+                        context,
+                        'movie-details',
+                        arguments: int.tryParse(movie.movieId),
+                      );
+                    },
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    flex: 1,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.red,
-                        foregroundColor: AppTheme.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Exit',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              fontSize: FontSizes.s20,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          SvgPicture.asset(AssetsManager.exitIcon),
-                        ],
-                      ),
-                    ),
+                  HistoryTab(
+                    cubit: historyCubit,
+                    onMovieTap: (movie) {
+                      Navigator.pushNamed(
+                        context,
+                        'movie-details',
+                        arguments: int.tryParse(movie.movieId),
+                      );
+                    },
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
-              TabBar(
-                indicatorColor: AppTheme.yellow,
-                labelColor: AppTheme.white,
-                unselectedLabelColor: AppTheme.white,
-                dividerColor: Colors.transparent,
-                indicatorSize: TabBarIndicatorSize.tab,
-                labelStyle: TextStyle(
-                  color: AppTheme.white,
-                  fontSize: FontSizes.s20,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Roboto',
-                ),
-                unselectedLabelStyle: TextStyle(
-                  color: AppTheme.white,
-                  fontSize: FontSizes.s20,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Roboto',
-                ),
-                tabs: [
-                  Tab(
-                    icon: SvgPicture.asset(AssetsManager.watchListIcon),
-                    text: "Watch List",
-                  ),
-                  Tab(
-                    icon: SvgPicture.asset(AssetsManager.historyIcon),
-                    text: "History",
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: TabBarView(
-            children: [
-              WatchListTab(
-                cubit: watchListCubit,
-                onMovieTap: (movie) {
-                  Navigator.pushNamed(
-                    context,
-                    'movie-details',
-                    arguments: int.tryParse(movie.movieId),
-                  );
-                },
-              ),
-              HistoryTab(
-                cubit: historyCubit,
-                onMovieTap: (movie) {
-                  Navigator.pushNamed(
-                    context,
-                    'movie-details',
-                    arguments: int.tryParse(movie.movieId),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

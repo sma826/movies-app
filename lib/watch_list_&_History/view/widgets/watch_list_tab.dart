@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:movies/shared/constants/apptheme.dart';
+import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/watch_list_&_History/view_model/watch_list_view_model.dart';
 import 'package:movies/watch_list_&_History/view_model/watch_list_states.dart';
 import 'package:movies/watch_list_&_History/view/widgets/movie_grid_item.dart';
@@ -18,13 +21,14 @@ class WatchListTab extends StatelessWidget {
       child: BlocBuilder<WatchListCubit, WatchListState>(
         builder: (context, state) {
           if (state is WatchListLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator(color: AppTheme.yellow,));
           } else if (state is WatchListError) {
             return Center(child: Text(state.message, style: TextStyle(color: Colors.red)));
           } else if (state is WatchListLoaded) {
             final movies = state.favorites.cast<FavoriteMovie>();
             if (movies.isEmpty) {
-              return Center(child: Text('No movies in your watch list.', style: TextStyle(color: Colors.white)));
+              return Center(child: Image.asset(AssetsManager.popcorn),
+              );
             }
             return GridView.builder(
               padding: EdgeInsets.all(16),

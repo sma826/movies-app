@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:movies/shared/constants/apptheme.dart';
+import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/watch_list_&_History/view/widgets/movie_grid_item.dart';
 import 'package:movies/watch_list_&_History/data/models/favorite_movie.dart';
 import 'package:movies/watch_list_&_History/view_model/history_cubit.dart';
@@ -18,13 +21,13 @@ class HistoryTab extends StatelessWidget {
       child: BlocBuilder<HistoryCubit, HistoryState>(
         builder: (context, state) {
           if (state is HistoryLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator(color: AppTheme.yellow,));
           } else if (state is HistoryError) {
             return Center(child: Text(state.message, style: TextStyle(color: Colors.red)));
           } else if (state is HistoryLoaded) {
             final movies = state.movies;
             if (movies.isEmpty) {
-              return Center(child: Text('No movies in your history.', style: TextStyle(color: Colors.white)));
+              return Center(child: Image.asset(AssetsManager.popcorn));
             }
             return GridView.builder(
               padding: EdgeInsets.all(16),

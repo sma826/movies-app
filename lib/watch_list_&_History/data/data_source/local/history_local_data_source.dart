@@ -2,14 +2,15 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:movies/watch_list_&_History/data/models/favorite_movie.dart';
 
-class HistoryLocalDataSource {
-  String _userId = '';
 
-  void setUserId(String userId) {
-    _userId = userId;
+class HistoryLocalDataSource {
+  String _token = '';
+
+  void setToken(String token) {
+    _token = token;
   }
 
-  String get historyKey => 'movie_history_$_userId';
+  String get historyKey => 'movie_history_$_token';
 
   Future<List<FavoriteMovie>> getHistoryMovies() async {
     final prefs = await SharedPreferences.getInstance();
