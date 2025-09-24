@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:movies/features/movies/presentation/bloc/movies_bloc.dart';
-import 'package:movies/features/movies/presentation/bloc/movies_event.dart';
-import 'package:movies/features/movies/presentation/bloc/movies_state.dart';
+import 'package:movies/movies/presentation/bloc/movies_bloc.dart';
+import 'package:movies/movies/presentation/bloc/movies_event.dart';
+import 'package:movies/movies/presentation/bloc/movies_state.dart';
 import 'package:movies/movie_details/view/screens/movie_details_screen.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
-import 'package:movies/features/movies/presentation/widgets/featured_movies_carousel.dart';
-import 'package:movies/features/movies/data/repositories/movies_repository_impl.dart';
+import 'package:movies/movies/presentation/widgets/featured_movies_carousel.dart';
+import 'package:movies/movies/data/repositories/movies_repository_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeTab extends StatefulWidget {

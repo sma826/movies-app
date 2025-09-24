@@ -1,4 +1,4 @@
-import 'package:movies/features/profile%20tab/data/data_source/remote/user_profile_api_data_source.dart';
+import 'package:movies/profile%20tab/data/data_source/remote/user_profile_api_data_source.dart';
 import 'package:movies/update%20profile/data/models/user_profile.dart';
 
 class UserProfileRepository {

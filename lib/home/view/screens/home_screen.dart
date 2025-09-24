@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/features/profile%20tab/view/screens/profile_tab.dart';
+import 'package:movies/profile%20tab/view/screens/profile_tab.dart';
 import 'package:movies/home/view/screens/tabs/browse_tab.dart';
 import 'package:movies/home/view/screens/tabs/home_tab.dart';
 import 'package:movies/home/view/screens/tabs/search_tab.dart';

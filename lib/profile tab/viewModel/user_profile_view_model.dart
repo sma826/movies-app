@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/features/profile%20tab/data/data_source/repositories/user_profile_repository.dart';
-import 'package:movies/features/profile%20tab/viewModel/user_profile_event.dart';
-import 'package:movies/features/profile%20tab/viewModel/user_profile_states.dart';
+import 'package:movies/profile%20tab/data/data_source/repositories/user_profile_repository.dart';
+import 'package:movies/profile%20tab/viewModel/user_profile_event.dart';
+import 'package:movies/profile%20tab/viewModel/user_profile_states.dart';
 
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   final UserProfileRepository userProfileRepository;

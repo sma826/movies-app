@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movies/features/profile%20tab/viewModel/user_profile_states.dart';
+import 'package:movies/profile%20tab/viewModel/user_profile_states.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
 
-import '../../../../Auth/login/view/screens/login_screen.dart';
-import '../../../../shared/constants/font_manager.dart';
+import '../../../Auth/login/view/screens/login_screen.dart';
+import '../../../shared/constants/font_manager.dart';
 import '../../viewModel/user_profile_view_model.dart';
 
 class ProfileTab extends StatelessWidget {

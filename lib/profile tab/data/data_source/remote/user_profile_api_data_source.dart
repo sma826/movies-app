@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:movies/features/profile%20tab/data/data_source/remote/user_profile_remote_data_source.dart';
+import 'package:movies/profile%20tab/data/data_source/remote/user_profile_remote_data_source.dart';
 import 'package:movies/shared/constants/api_constants.dart';
 import 'package:movies/update%20profile/data/models/user_profile.dart';
 
-import '../../../../../Auth/login/data/data_sources/local/login_shared_pref_data_source.dart';
+import '../../../../Auth/login/data/data_sources/local/login_shared_pref_data_source.dart';
 
 class UserProfileApiDataSource implements UserProfileRemoteDataSource {
   final LoginSharedPrefDataSource loginLocalDataSource;
