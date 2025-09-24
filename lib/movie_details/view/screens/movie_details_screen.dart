@@ -13,6 +13,10 @@ import 'package:movies/movie_details/viewModel/movie_suggestions_view_model.dart
 import 'package:movies/movie_details/viewModel/movie_details_states.dart';
 import 'package:movies/movie_details/viewModel/movie_details_view_model.dart';
 import 'package:movies/shared/widgets/loading_indicator.dart';
+import 'package:movies/watch_list_&_History/view_model/history_cubit.dart';
+import 'package:movies/watch_list_&_History/data/repositories/history_repository.dart';
+import 'package:movies/watch_list_&_History/data/data_source/local/history_local_data_source.dart';
+import 'package:movies/watch_list_&_History/data/models/favorite_movie.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   static const String routeName = 'movie-details';
@@ -24,9 +28,15 @@ class MovieDetailsScreen extends StatelessWidget {
     int movieId = ModalRoute.of(context)!.settings.arguments as int;
     log('movieID: $movieId');
 
+    final historyCubit = HistoryCubit(
+      repository: HistoryRepository(HistoryLocalDataSource()),
+    );
     return Scaffold(
-      body: BlocProvider(
-        create: (context) => MovieDetailsCubit()..getMovieDetails(movieId),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => MovieDetailsCubit()..getMovieDetails(movieId)),
+          BlocProvider.value(value: historyCubit),
+        ],
         child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
           builder: (context, state) {
             if (state is MovieDetailsLoading) {
@@ -36,6 +46,16 @@ class MovieDetailsScreen extends StatelessWidget {
             } else if (state is MovieDetailsSuccess) {
               final movie = state.movieItem;
               log('movieItem: $movie');
+
+              // Save to history when details are loaded
+              final fav = FavoriteMovie(
+                movieId: movie.id?.toString() ?? '',
+                name: movie.title ?? '',
+                rating: movie.rating,
+                imageURL: movie.largeCoverImage,
+                year: movie.year?.toString(),
+              );
+              historyCubit.addMovieToHistory(fav);
 
               List<Widget> content = [
                 MovieHeader(movie: movie),

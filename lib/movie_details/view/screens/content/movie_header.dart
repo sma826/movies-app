@@ -110,7 +110,8 @@ class _MovieHeaderState extends State<MovieHeader> {
                           );
                           await _watchCubit.addMovie(fav);
                         }
-                        // toggle local state; cubit will emit isFavorite too
+                        // Refresh the watchlist after add/remove
+                        await _watchCubit.getAllFavorites();
                         isMarked = !isMarked;
                         setState(() {});
                       },
