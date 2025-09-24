@@ -1,5 +1,5 @@
-import 'package:movies/watch_list_&_History/data/models/favorite_movie.dart';
 import 'package:movies/watch_list_&_History/data/data_source/remote/watch_list_remote_data_source.dart';
+import 'package:movies/watch_list_&_History/data/models/favorite_movie.dart';
 
 class MovieListRepository {
 	final WatchListRemoteDataSource remoteDataSource;

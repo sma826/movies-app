@@ -1,5 +1,5 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:movies/shared/constants/api_constants.dart';
 import 'package:movies/watch_list_&_History/data/data_source/remote/watch_list_remote_data_source.dart';
 import 'package:movies/watch_list_&_History/data/models/favorite_movie.dart';
