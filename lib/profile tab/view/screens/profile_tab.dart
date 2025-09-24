@@ -5,6 +5,16 @@ import 'package:movies/profile%20tab/viewModel/user_profile_states.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
+import 'package:movies/watch_list_&_History/view/widgets/watch_list_tab.dart';
+import 'package:movies/watch_list_&_History/view/widgets/history_tab.dart';
+import 'package:movies/watch_list_&_History/view_model/watch_list_view_model.dart';
+import 'package:movies/watch_list_&_History/view_model/watch_list_states.dart';
+import 'package:movies/watch_list_&_History/view_model/history_states.dart';
+import 'package:movies/watch_list_&_History/view_model/history_cubit.dart';
+import 'package:movies/watch_list_&_History/data/repositories/watch_list_repository.dart';
+import 'package:movies/watch_list_&_History/data/repositories/history_repository.dart';
+import 'package:movies/watch_list_&_History/data/data_source/remote/watch_list_api_data_source.dart';
+import 'package:movies/watch_list_&_History/data/data_source/local/history_local_data_source.dart';
 
 import '../../../Auth/login/view/screens/login_screen.dart';
 import '../../../shared/constants/font_manager.dart';
@@ -68,6 +78,12 @@ class ProfileTab extends StatelessWidget {
 
   Widget buildLoadedView(BuildContext context, ProfileSuccess state) {
     final userProfile = state.userProfile;
+    final watchListCubit = WatchListCubit(
+      repository: MovieListRepository(WatchListAPIDataSource()),
+    );
+    final historyCubit = HistoryCubit(
+      repository: HistoryRepository(HistoryLocalDataSource()),
+    );
     return Column(
       children: [
         Container(
@@ -97,51 +113,69 @@ class ProfileTab extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '12',
-                        style: const TextStyle(
-                          color: AppTheme.white,
-                          fontSize: FontSizes.s36,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                      Text(
-                        'Wish List',
-                        style: const TextStyle(
-                          color: AppTheme.white,
-                          fontSize: FontSizes.s24,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                    ],
+                  BlocBuilder<WatchListCubit, WatchListState>(
+                    bloc: watchListCubit..getAllFavorites(),
+                    builder: (context, state) {
+                      int count = 0;
+                      if (state is WatchListLoaded) {
+                        count = state.favorites.length;
+                      }
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '$count',
+                            style: const TextStyle(
+                              color: AppTheme.white,
+                              fontSize: FontSizes.s36,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Roboto',
+                            ),
+                          ),
+                          Text(
+                            'Wish List',
+                            style: const TextStyle(
+                              color: AppTheme.white,
+                              fontSize: FontSizes.s24,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Roboto',
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '10',
-                        style: const TextStyle(
-                          color: AppTheme.white,
-                          fontSize: FontSizes.s36,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                      Text(
-                        'History',
-                        style: const TextStyle(
-                          color: AppTheme.white,
-                          fontSize: FontSizes.s24,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                    ],
+                  BlocBuilder<HistoryCubit, HistoryState>(
+                    bloc: historyCubit..getHistoryMovies(),
+                    builder: (context, state) {
+                      int count = 0;
+                      if (state is HistoryLoaded) {
+                        count = state.movies.length;
+                      }
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '$count',
+                            style: const TextStyle(
+                              color: AppTheme.white,
+                              fontSize: FontSizes.s36,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Roboto',
+                            ),
+                          ),
+                          Text(
+                            'History',
+                            style: const TextStyle(
+                              color: AppTheme.white,
+                              fontSize: FontSizes.s24,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Roboto',
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
@@ -251,8 +285,26 @@ class ProfileTab extends StatelessWidget {
         Expanded(
           child: TabBarView(
             children: [
-              Container(width: double.infinity, color: AppTheme.black),
-              Container(width: double.infinity, color: AppTheme.black),
+              WatchListTab(
+                cubit: watchListCubit,
+                onMovieTap: (movie) {
+                  Navigator.pushNamed(
+                    context,
+                    'movie-details',
+                    arguments: int.tryParse(movie.movieId),
+                  );
+                },
+              ),
+              HistoryTab(
+                cubit: historyCubit,
+                onMovieTap: (movie) {
+                  Navigator.pushNamed(
+                    context,
+                    'movie-details',
+                    arguments: int.tryParse(movie.movieId),
+                  );
+                },
+              ),
             ],
           ),
         ),
