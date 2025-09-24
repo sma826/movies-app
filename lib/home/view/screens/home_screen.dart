@@ -1,4 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/features/search/data/data_source/movies_api_data_source.dart';
+import 'package:movies/features/search/data/repositories/movies_search_repositoriey.dart';
+import 'package:movies/features/search/presentation/cubit/search_cubit.dart';
 import 'package:movies/profile%20tab/view/screens/profile_tab.dart';
 import 'package:movies/home/view/screens/tabs/browse_tab.dart';
 import 'package:movies/home/view/screens/tabs/home_tab.dart';
@@ -23,7 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     List<Widget> tabs = [
       HomeTab(key: homeTabKey),
-      const SearchTab(),
+
+      BlocProvider(
+        create: (context) => MoviesSearchCubit(
+          MoviesSearchRepositoriey(MoviesApiDataSource(dio: Dio())),
+        ),
+        child: const SearchTab(),
+      ),
       const BrowseTab(),
       const ProfileTab(),
     ];
