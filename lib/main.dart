@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/Auth/forgotpassword/view/screens/forgot_password_screen.dart';
@@ -7,6 +8,10 @@ import 'package:movies/Auth/login/viewModel/login_view_model.dart';
 import 'package:movies/Auth/register/data/repositories/register_repository.dart';
 import 'package:movies/Auth/register/view%20model/register_view_model.dart';
 import 'package:movies/Auth/register/view/screens/register_screen.dart';
+import 'package:movies/profile%20tab/data/data_source/remote/user_profile_api_data_source.dart';
+import 'package:movies/profile%20tab/data/data_source/repositories/user_profile_repository.dart';
+import 'package:movies/profile%20tab/viewModel/user_profile_event.dart';
+import 'package:movies/profile%20tab/viewModel/user_profile_view_model.dart';
 import 'package:movies/home/view/screens/home_screen.dart';
 import 'package:movies/movie_details/view/screens/movie_details_screen.dart';
 import 'package:movies/onboarding/data/data_source/local/onboarding_local_data_source.dart';
@@ -15,6 +20,8 @@ import 'package:movies/onboarding/view/screens/onboarding_screens.dart';
 import 'package:movies/shared/bloc_observer.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/update%20profile/view/screens/update_profile_screen.dart';
+
+import 'Auth/login/data/data_sources/local/login_shared_pref_data_source.dart';
 import 'Auth/register/data/data source/register_api_data_source.dart';
 
 void main() async {
@@ -50,12 +57,27 @@ class MoviesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginDataSource = LoginSharedPrefDataSource();
+    final dio = Dio();
+    final userProfileRemoteDataSource = UserProfileApiDataSource(
+      dio,
+      loginDataSource,
+    );
+    final userProfileRepository = UserProfileRepository(
+      userProfileRemoteDataSource,
+    );
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<RegisterViewModel>(
           create: (_) => RegisterViewModel(registerRepository),
         ),
         BlocProvider<LoginCubit>(create: (_) => LoginCubit()),
+        BlocProvider<UserProfileBloc>(
+          create: (context) =>
+              UserProfileBloc(userProfileRepository: userProfileRepository)
+                ..add(LoadProfile()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

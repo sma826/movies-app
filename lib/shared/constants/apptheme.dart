@@ -12,6 +12,7 @@ class AppTheme {
   static const Color transparentYellow = Color(0xFFF6BD00);
   static const Color grey = Color(0xFF282A28);
   static const Color headerGrey = Color(0xFFADADAD);
+  static const Color darkGrey = Color(0xFF212121);
 
   // TODO: gradient colors
   static const Color gradientTop = Color.fromRGBO(18, 19, 18, 0.8);

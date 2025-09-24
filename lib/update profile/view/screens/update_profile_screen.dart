@@ -39,7 +39,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     final dataSource = ProfileApiDataSource(dio);
     final repository = ProfileRepository(dataSource);
 
-    final cubit = ProfileCubit(repository, token);
+    final cubit = ProfileCubit(repository, token!);
     cubit.fetchProfile();
     setState(() {
       profileCubit = cubit;
@@ -59,14 +59,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         : BlocProvider.value(
             value: profileCubit!,
             child: Scaffold(
-              appBar: AppBar(
-                leading: Icon(
-                  Icons.arrow_back,
-                  color: AppTheme.yellow,
-                  size: 30,
-                ),
-                title: Text('Pick Avatar'),
-              ),
+              appBar: AppBar(title: Text('Pick Avatar')),
               body: BlocBuilder<ProfileCubit, ProfileState>(
                 builder: (_, state) {
                   if (state is ProfileLoading) {
@@ -121,6 +114,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             phoneController.text,
                             selectedIndex,
                           );
+                          if (Navigator.of(context).canPop()) {
+                            Navigator.of(context).pop();
+                          }
                         },
                         borderRadius: 15,
                         textColor: AppTheme.black,
