@@ -12,7 +12,7 @@ class MoviesRepository {
       final url = APIConstants.baseUrl + APIConstants.listMovies;
 
       final params = {
-        'limit': 20,
+        'limit': genre.isEmpty ? 50 : 20,
         'sort_by': 'date_added',
         'order_by': 'desc',
         'genre': genre,
