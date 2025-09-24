@@ -11,8 +11,8 @@ class HistoryCubit extends Cubit<HistoryState> {
   Future<void> getHistoryMovies() async {
     emit(HistoryLoading());
     try {
-      final movies = await repository.getHistoryMovies();
-      emit(HistoryLoaded(movies));
+  final movies = await repository.getHistoryMovies();
+  emit(HistoryLoaded(movies.reversed.toList()));
     } catch (e) {
       emit(HistoryError(e.toString()));
     }
