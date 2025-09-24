@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/movie_details/data/models/movie_details/movie_details_item.dart';
 import 'package:movies/movie_details/viewModel/movie_details_view_model.dart';
+import 'package:movies/watch_list_&_History/view_model/watch_list_view_model.dart';
+import 'package:movies/watch_list_&_History/data/data_source/remote/watch_list_api_data_source.dart';
+import 'package:movies/watch_list_&_History/data/repositories/watch_list_repository.dart';
+import 'package:movies/watch_list_&_History/data/models/favorite_movie.dart';
+import 'package:movies/watch_list_&_History/view_model/watch_list_states.dart';
 import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/font_manager.dart';
 import 'package:movies/shared/widgets/custom_elevated_button.dart';
@@ -17,6 +22,25 @@ class MovieHeader extends StatefulWidget {
 
 class _MovieHeaderState extends State<MovieHeader> {
   bool isMarked = false;
+  late final WatchListCubit _watchCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    final repo = MovieListRepository(WatchListAPIDataSource());
+    _watchCubit = WatchListCubit(repository: repo);
+    // check if the movie is favorite
+    final movieId = widget.movie.id?.toString() ?? '';
+    if (movieId.isNotEmpty) {
+      _watchCubit.checkIsFavorite(movieId);
+    }
+  }
+
+  @override
+  void dispose() {
+    _watchCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +78,52 @@ class _MovieHeaderState extends State<MovieHeader> {
           Positioned(
             right: 16,
             top: 16,
-            child: IconButton(
-              onPressed: () {
-                isMarked = !isMarked;
-                setState(() {});
-              },
-              icon: Icon(
-                isMarked
-                    ? CupertinoIcons.bookmark_fill
-                    : CupertinoIcons.bookmark,
-                size: 30,
-                color: AppTheme.white,
+            child: BlocProvider.value(
+              value: _watchCubit,
+              child: BlocListener<WatchListCubit, WatchListState>(
+                listener: (context, state) {
+                  if (state is WatchListIsFavoriteState) {
+                    isMarked = state.isFavorite;
+                    setState(() {});
+                  } else if (state is WatchListActionSuccess) {
+                    // toggle based on action
+                    // state message can be used for snackbars
+                    setState(() {});
+                  }
+                },
+                child: BlocBuilder<WatchListCubit, WatchListState>(
+                  builder: (context, state) {
+                    return IconButton(
+                      onPressed: () async {
+                        final movieId = widget.movie.id?.toString() ?? '';
+                        if (movieId.isEmpty) return;
+
+                        if (isMarked) {
+                          await _watchCubit.removeMovie(movieId);
+                        } else {
+                          final fav = FavoriteMovie(
+                            movieId: movieId,
+                            name: widget.movie.title ?? '',
+                            rating: widget.movie.rating,
+                            imageURL: widget.movie.largeCoverImage,
+                            year: widget.movie.year?.toString(),
+                          );
+                          await _watchCubit.addMovie(fav);
+                        }
+                        // toggle local state; cubit will emit isFavorite too
+                        isMarked = !isMarked;
+                        setState(() {});
+                      },
+                      icon: Icon(
+                        isMarked
+                            ? CupertinoIcons.bookmark_fill
+                            : CupertinoIcons.bookmark,
+                        size: 30,
+                        color: AppTheme.white,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ),
