@@ -1,8 +1,7 @@
-import 'package:dio/dio.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/features/search/data/data_source/movies_api_data_source.dart';
-import 'package:movies/features/search/data/repositories/movies_search_repositoriey.dart';
 import 'package:movies/features/search/presentation/cubit/search_cubit.dart';
 import 'package:movies/features/search/presentation/cubit/search_state.dart';
 import 'package:movies/features/search/presentation/widgets/search_text_field.dart';
@@ -30,7 +29,7 @@ class _SearchTabState extends State<SearchTab> {
             context.read<MoviesSearchCubit>().searchMovies(value, page: page);
           },
         ),
-        SizedBox(height: 13),
+        // SizedBox(height: 13),
 
         Expanded(
           child: BlocBuilder<MoviesSearchCubit, SearchState>(
@@ -43,7 +42,7 @@ class _SearchTabState extends State<SearchTab> {
                 return Center(child: Text(state.errorMessage));
               } else if (state is SearchSuccess) {
                 final movies = state.movies;
-                print('movies length: ${movies.length}');
+                log('movies length: ${movies.length}');
                 return GridView.builder(
                   shrinkWrap: true,
 
