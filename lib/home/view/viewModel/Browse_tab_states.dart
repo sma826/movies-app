@@ -1,4 +1,5 @@
-import '../../../features/movies/data/models/movie_model.dart';
+import 'package:movies/movies/data/models/movie_model.dart';
+
 
 abstract class BrowseTabState {}
 

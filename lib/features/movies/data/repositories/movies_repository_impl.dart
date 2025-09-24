@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:movies/movies/data/models/movie_model.dart';
 import 'package:movies/shared/constants/api_constants.dart';
-import '../models/movie_model.dart';
 
 class MoviesRepository {
   final Dio dio;
