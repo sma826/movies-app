@@ -251,8 +251,8 @@ class ProfileTab extends StatelessWidget {
         Expanded(
           child: TabBarView(
             children: [
-              Container(width: double.infinity, color: AppTheme.black,
-              ),
+              Container(width: double.infinity, color: AppTheme.black),
+              Container(width: double.infinity, color: AppTheme.black),
             ],
           ),
         ),
