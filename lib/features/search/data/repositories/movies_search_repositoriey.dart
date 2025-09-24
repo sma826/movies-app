@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:movies/features/movies/data/models/movie_model.dart';
 import 'package:movies/features/search/data/data_source/movies_api_data_source.dart';
+import 'package:movies/movies/data/models/movie_model.dart';
 
 class MoviesSearchRepositoriey {
   final MoviesApiDataSource moviesApiDataSource;
@@ -11,7 +11,7 @@ class MoviesSearchRepositoriey {
     try {
       return moviesApiDataSource.fetchMoviesByQueryTerm(queryTerm, page: page);
     } catch (e) {
-       log("Repository Error: $e", name: 'MoviesSearchRepository', level: 1000);
+      log("Repository Error: $e", name: 'MoviesSearchRepository', level: 1000);
       throw Exception("Repository Error: $e");
     }
   }
