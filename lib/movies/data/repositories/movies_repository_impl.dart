@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:movies/movies/data/models/movie_model.dart';
 import 'package:movies/shared/constants/api_constants.dart';
+import '../models/movie_model.dart';
 
 class MoviesRepository {
   final Dio dio;
@@ -12,7 +12,7 @@ class MoviesRepository {
       final url = APIConstants.baseUrl + APIConstants.listMovies;
 
       final params = {
-        'limit': genre.isEmpty ? 50 : 20,
+        'limit': 20,
         'sort_by': 'date_added',
         'order_by': 'desc',
         'genre': genre,

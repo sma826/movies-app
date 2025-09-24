@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/features/search/data/data_source/movies_api_data_source.dart';
 import 'package:movies/features/search/data/repositories/movies_search_repositoriey.dart';
 import 'package:movies/features/search/presentation/cubit/search_cubit.dart';
+import 'package:movies/profile%20tab/view/screens/profile_tab.dart';
+import 'package:movies/home/view/screens/tabs/browse_tab.dart';
 import 'package:movies/home/view/screens/tabs/home_tab.dart';
 import 'package:movies/home/view/screens/tabs/search_tab.dart';
-import 'package:movies/home/view/screens/tabs/browse_tab.dart';
-import 'package:movies/home/view/screens/tabs/profile_tab.dart';
 import 'package:movies/home/view/widgets/bottom_nav_bar_item.dart';
+import 'package:movies/shared/constants/apptheme.dart';
 import 'package:movies/shared/constants/assets_manager.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     return Scaffold(
+      backgroundColor: AppTheme.black,
       body: IndexedStack(index: _currentIndex, children: tabs),
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
