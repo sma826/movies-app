@@ -1,9 +1,12 @@
+import '../../models/favorite_movie.dart';
+
 abstract class WatchListRemoteDataSource {
-  Future addMovieToFav();
+  Future<FavoriteMovie> addMovieToFav(FavoriteMovie movie);
 
-  Future getAllFavMovies();
+  Future<List<FavoriteMovie>> getAllFavMovies();
 
-  Future movieIsFav();
+  Future<bool> movieIsFav(String movieId);
   
-  void removeMovie();
+  Future<void> removeMovie(String movieId);
 }
+
