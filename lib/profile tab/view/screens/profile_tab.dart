@@ -81,8 +81,10 @@ class ProfileTab extends StatelessWidget {
     final watchListCubit = WatchListCubit(
       repository: MovieListRepository(WatchListAPIDataSource()),
     );
+    final historyLocalDataSource = HistoryLocalDataSource();
+    historyLocalDataSource.setUserId(userProfile.id);
     final historyCubit = HistoryCubit(
-      repository: HistoryRepository(HistoryLocalDataSource()),
+      repository: HistoryRepository(historyLocalDataSource),
     );
     return Column(
       children: [

@@ -3,7 +3,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:movies/watch_list_&_History/data/models/favorite_movie.dart';
 
 class HistoryLocalDataSource {
-  static const String historyKey = 'movie_history';
+  String _userId = '';
+
+  void setUserId(String userId) {
+    _userId = userId;
+  }
+
+  String get historyKey => 'movie_history_$_userId';
 
   Future<List<FavoriteMovie>> getHistoryMovies() async {
     final prefs = await SharedPreferences.getInstance();
