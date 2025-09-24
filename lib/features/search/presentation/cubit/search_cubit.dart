@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/features/movies/data/models/movie_model.dart';
 import 'package:movies/features/search/data/repositories/movies_search_repositoriey.dart';
 import 'package:movies/features/search/presentation/cubit/search_state.dart';
+import 'package:movies/movies/data/models/movie_model.dart';
 
 class MoviesSearchCubit extends Cubit<SearchState> {
   final MoviesSearchRepositoriey moviesSearchRepositoriey;

@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:movies/features/movies/data/models/movie_model.dart';
 import 'package:movies/features/search/data/data_source/movies_data_source.dart';
+import 'package:movies/movies/data/models/movie_model.dart';
 import 'package:movies/shared/constants/api_constants.dart';
 
 class MoviesApiDataSource implements MoviesDataSource {
@@ -28,6 +28,6 @@ class MoviesApiDataSource implements MoviesDataSource {
     }
 
     final moviesData = Movies.fromJson(response.data);
-    return moviesData.data.movies!;
+    return moviesData.data.movies;
   }
 }
