@@ -59,9 +59,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         : BlocProvider.value(
             value: profileCubit!,
             child: Scaffold(
-              appBar: AppBar(
-                title: Text('Pick Avatar'),
-              ),
+              appBar: AppBar(title: Text('Pick Avatar')),
               body: BlocBuilder<ProfileCubit, ProfileState>(
                 builder: (_, state) {
                   if (state is ProfileLoading) {
@@ -116,6 +114,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             phoneController.text,
                             selectedIndex,
                           );
+                          if (Navigator.of(context).canPop()) {
+                            Navigator.of(context).pop();
+                          }
                         },
                         borderRadius: 15,
                         textColor: AppTheme.black,

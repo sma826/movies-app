@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,10 @@ import 'package:movies/movie_details/viewModel/movie_suggestions_view_model.dart
 import 'package:movies/movie_details/viewModel/movie_details_states.dart';
 import 'package:movies/movie_details/viewModel/movie_details_view_model.dart';
 import 'package:movies/shared/widgets/loading_indicator.dart';
+import 'package:movies/watch_list_&_History/view_model/history_cubit.dart';
+import 'package:movies/watch_list_&_History/data/repositories/history_repository.dart';
+import 'package:movies/watch_list_&_History/data/data_source/local/history_local_data_source.dart';
+import 'package:movies/watch_list_&_History/data/models/favorite_movie.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   static const String routeName = 'movie-details';
@@ -24,20 +29,48 @@ class MovieDetailsScreen extends StatelessWidget {
     int movieId = ModalRoute.of(context)!.settings.arguments as int;
     log('movieID: $movieId');
 
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => MovieDetailsCubit()..getMovieDetails(movieId),
-        child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
-          builder: (context, state) {
-            if (state is MovieDetailsLoading) {
-              return const LoadingIndicator();
-            } else if (state is MovieDetailsError) {
-              return Center(child: Text('${state.messsage}'));
-            } else if (state is MovieDetailsSuccess) {
-              final movie = state.movieItem;
-              log('movieItem: $movie');
+    final historyLocalDataSource = HistoryLocalDataSource();
+    return FutureBuilder<String?>(
+      future: (() async {
+        final prefs = await SharedPreferences.getInstance();
+        return prefs.getString('token');
+      })(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        final token = snapshot.data ?? '';
+        historyLocalDataSource.setToken(token);
+        final historyCubit = HistoryCubit(
+          repository: HistoryRepository(historyLocalDataSource),
+        );
+        return Scaffold(
+          body: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => MovieDetailsCubit()..getMovieDetails(movieId)),
+              BlocProvider.value(value: historyCubit),
+            ],
+            child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
+              builder: (context, state) {
+                if (state is MovieDetailsLoading) {
+                  return const LoadingIndicator();
+                } else if (state is MovieDetailsError) {
+                  return Center(child: Text('${state.messsage}'));
+                } else if (state is MovieDetailsSuccess) {
+                  final movie = state.movieItem;
+                  log('movieItem: $movie');
 
-              List<Widget> content = [
+                  // Save to history when details are loaded
+                  final fav = FavoriteMovie(
+                    movieId: movie.id?.toString() ?? '',
+                    name: movie.title ?? '',
+                    rating: movie.rating,
+                    imageURL: movie.largeCoverImage,
+                    year: movie.year?.toString(),
+                  );
+                  historyCubit.addMovieToHistory(fav);
+
+                  List<Widget> content = [
                 MovieHeader(movie: movie),
                 MovieScreenshots(movie: movie),
                 BlocProvider(
@@ -51,17 +84,18 @@ class MovieDetailsScreen extends StatelessWidget {
                 MovieGenres(movie: movie),
               ];
 
-              return ListView.separated(
-                itemBuilder: (_, index) => content[index],
-                separatorBuilder: (_, index) => const SizedBox(height: 16),
-                itemCount: content.length,
-              );
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
-      ),
+                  return ListView.separated(
+                    itemBuilder: (_, index) => content[index],
+                    separatorBuilder: (_, index) => const SizedBox(height: 16),
+                    itemCount: content.length,
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }
